@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "653527420064",
+    "firebase_url": "https://booking-flutter-app.firebaseio.com",
+    "project_id": "booking-flutter-app",
+    "storage_bucket": "booking-flutter-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653527420064:android:35dbad87791da078",
+        "android_client_info": {
+          "package_name": "com.example.booking_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653527420064-uku26dqifnkc73pustnln1q3119lancj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.booking_app",
+            "certificate_hash": "27917f1a5dbde3ab36a779c0b608d86e7df29615"
+          }
+        },
+        {
+          "client_id": "653527420064-18s8v21erdgrkfvfgk1pu1cqiihn1rrf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4CAaBWsmlRNRb6Jfb7ue2AZyKXyqZFF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653527420064-18s8v21erdgrkfvfgk1pu1cqiihn1rrf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
