@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-import './signuppage.dart';
-
-class LoginPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
 
   var _username = new TextEditingController();
   var _password = new TextEditingController();
@@ -17,20 +15,8 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.greenAccent,
-        title: new Text("Login"),
+        title: new Text("Sign Up"),
         centerTitle: true,
-        actions: <Widget>[
-          new IconButton(
-              icon: Icon(Icons.person_add),
-              onPressed: (){
-                  var router = new MaterialPageRoute(
-                  builder: (BuildContext context){
-                  return new SignUpPage();
-                  });
-                  Navigator.of(context).push(router);
-
-              })
-        ],
       ),
       body: new Stack(
         children: <Widget>[
@@ -48,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
                 title: new TextField(
                   controller: _username,
                   decoration: new InputDecoration(
-                    labelText: "Enter the username"
+                      labelText: "Enter the username"
                   ),
                 ),
               ),
@@ -61,11 +47,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               new ListTile(
-                title: new RaisedButton(
+                  title: new RaisedButton(
                     onPressed: ()=>debugPrint("Login button"),
-                    child: new Text("Login"),
+                    child: new Text("Sign Up"),
                     color: Colors.greenAccent.shade100,
-                )
+                  )
               ),
             ],
           )
