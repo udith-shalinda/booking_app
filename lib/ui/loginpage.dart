@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './signuppage.dart';
+import './home.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -62,7 +63,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
               new ListTile(
                 title: new RaisedButton(
-                    onPressed: ()=>debugPrint("Login button"),
+                    onPressed: (){
+                      var router = new MaterialPageRoute(
+                          builder: (BuildContext context){
+                            return new PickDate();
+                          });
+                      Navigator.of(context).push(router);
+                    },
                     child: new Text("Login"),
                     color: Colors.greenAccent.shade100,
                 )
