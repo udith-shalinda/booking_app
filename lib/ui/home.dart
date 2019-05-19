@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './signuppage.dart';
+
 class PickDate extends StatefulWidget {
   @override
   _PickDateState createState() => _PickDateState();
@@ -31,6 +33,13 @@ class _PickDateState extends State<PickDate> {
               onPressed:()=> _selectDate(context),
               child: new Text("Pick a date"),
             ),
+          ),
+          new Text(
+              "$selectedDate",
+            style: new TextStyle(
+              fontSize: 56,
+              color: Colors.redAccent
+            ),
           )
         ],
       ),
@@ -43,10 +52,16 @@ class _PickDateState extends State<PickDate> {
         initialDate : DateTime.now(),
         firstDate: DateTime(2019, 5),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
+    if (picked != null)
       setState(() {
         selectedDate = picked;
         print(picked);
+        var router = new MaterialPageRoute(
+            builder: (BuildContext context){
+              return new SignUpPage();
+            });
+        Navigator.of(context).push(router);
       });
+
   }
 }

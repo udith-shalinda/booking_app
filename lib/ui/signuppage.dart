@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+final FirebaseDatabase database = FirebaseDatabase.instance;
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -48,7 +51,12 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               new ListTile(
                   title: new RaisedButton(
-                    onPressed: ()=>debugPrint("Login button"),
+                    onPressed: (){
+                      database.reference().child("user").set({
+                        "username": "${_username.text}",
+                        "password": "${_password.text}"
+                      });
+                    },
                     child: new Text("Sign Up"),
                     color: Colors.greenAccent.shade100,
                   )
