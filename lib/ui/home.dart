@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './signuppage.dart';
+import './Date.dart';
 
 class PickDate extends StatefulWidget {
   @override
@@ -58,7 +59,7 @@ class _PickDateState extends State<PickDate> {
         print(picked);
         var router = new MaterialPageRoute(
             builder: (BuildContext context){
-              return new SignUpPage();
+              return new Date(date: picked);
             });
         Navigator.of(context).push(router);
       });

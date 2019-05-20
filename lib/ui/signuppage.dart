@@ -23,14 +23,12 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
       body: new Stack(
         children: <Widget>[
-          new Center(
-            child: new Image.asset(
+          new Image.asset(
               'images/cover_two.jpg',
               fit: BoxFit.fill,
               width: 500,
               height: 1000,
             ),
-          ),
           new ListView(
             children: <Widget>[
               new ListTile(
