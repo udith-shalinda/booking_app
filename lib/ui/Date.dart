@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 
 import '../modle/bookModle.dart';
 
@@ -15,7 +16,7 @@ class Date extends StatefulWidget {
 class _DateState extends State<Date> {
 
 
-  List<BookModle> bookedDates = List();
+  List<BookModle> bookedDatesList = List();
   BookModle bookModle;
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference ;
@@ -47,38 +48,31 @@ class _DateState extends State<Date> {
               height: 1000,
             ),
           ),
-          new Center(
-            child: new ListView(
-              children: <Widget>[
-                new ListTile(
-                  title: new Text(
-                      "${widget.date}",
-                    style: new TextStyle(
-                      backgroundColor: Colors.white,
-                        fontSize: 34
-                    ),
-                  ),
-                  contentPadding: EdgeInsets.all(0),
-
+          new ListView(
+            children: <Widget>[
+              new Container(
+                height: 500,
+                child: new FirebaseAnimatedList(
+                    query: databaseReference,
+                    itemBuilder:(_, DataSnapshot snapshot,Animation<double> animation , int index){
+                      return new Card(
+                        child: new ListTile(
+//                            leading: CircleAvatar(
+//                              backgroundColor: Colors.redAccent,
+//                            ),
+                          title:  Text(snapshot.value['dateTime'].toString()),
+                          subtitle:  Text(snapshot.value['startTime'].toString()),
+                        ),
+                      );
+                    }
                 ),
-                new Divider(),
-                new ListTile(
-                  title: new Text(
-                      "${widget.date}",
-                    style: new TextStyle(
-                      backgroundColor: Colors.white,
-                      fontSize: 34
-                    ),
-                  ),
-                  contentPadding: EdgeInsets.all(0),
-                ),
-                new RaisedButton(
-                    onPressed: handleSubmition,
-                  child: new Text("print date"),
-                )
-              ],
-            )
-          )
+              ),
+              new RaisedButton(
+                onPressed: handleSubmition,
+                child: new Text("print date"),
+              )
+            ],
+          ),
         ],
       ),
     );
@@ -86,7 +80,7 @@ class _DateState extends State<Date> {
 
   void _OnEntryAdded(Event event) {
     setState(() {
-      bookedDates.add(BookModle.fromSnapshot(event.snapshot));
+      bookedDatesList.add(BookModle.fromSnapshot(event.snapshot));
     });
   }
 
