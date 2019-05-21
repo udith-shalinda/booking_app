@@ -53,7 +53,7 @@ class _DateState extends State<Date> {
               new Container(
                 height: 500,
                 child: new FirebaseAnimatedList(
-                    query: databaseReference,
+                    query: database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}"),
                     itemBuilder:(_, DataSnapshot snapshot,Animation<double> animation , int index){
                       return new Card(
                         child: new ListTile(
