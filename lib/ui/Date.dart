@@ -83,17 +83,23 @@ class _DateState extends State<Date> {
                 ),
               ),
               new RaisedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    updatetheBooking("morning");
+                  },
                   child: new Text("Book Morning"),
                   color: Colors.red,
               ),
               new RaisedButton(
-                onPressed: (){},
+                onPressed: (){
+                  updatetheBooking("evening");
+                },
                 child: new Text("Book Evening"),
                 color: Colors.red,
               ),
               new RaisedButton(
-                onPressed: (){},
+                onPressed: (){
+                  updatetheBooking("night");
+                },
                 child: new Text("Book Night"),
                 color: Colors.red,
               ),
@@ -123,8 +129,16 @@ class _DateState extends State<Date> {
   void updatetheBooking(String time){
     if(time == "morning"){
       //update the morning
+      bookModle.dateTime = "${widget.date}";
+      bookModle.morning = true;
+      bookModle.evening = false;
+      bookModle.night= false;
+
+      //databaseReference.orderByChild("dateTime").equalTo("${widget.date}");
     }else if(time == "evening"){
       //update the evening;
+    }else{
+      //update the night;
     }
   }
 }
