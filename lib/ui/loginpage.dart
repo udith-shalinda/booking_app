@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
 import './signuppage.dart';
 import './home.dart';
@@ -9,6 +12,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final FirebaseDatabase database = FirebaseDatabase.instance;
+  DatabaseReference databaseReference;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    databaseReference = database.reference().child("user");
+  }
 
   var _username = new TextEditingController();
   var _password = new TextEditingController();
@@ -63,13 +75,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               new ListTile(
                 title: new RaisedButton(
-                    onPressed: (){
-                      var router = new MaterialPageRoute(
-                          builder: (BuildContext context){
-                            return new PickDate();
-                          });
-                      Navigator.of(context).push(router);
-                    },
+                    onPressed: loginButton,
                     child: new Text("Login"),
                     color: Colors.greenAccent.shade100,
                 )
@@ -79,5 +85,35 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  void loginButton(){
+    if(_username.text != '' && _password.text != ''){
+      //login
+     signInWithCredentials(_username.text, _password.text);
+    }
+
+  }
+
+  void signInWithCredentials(String email, String password) async {
+    FirebaseUser user;
+    try{
+      user = await _firebaseAuth.signInWithEmailAndPassword(
+          email: _username.text,
+          password: _password.text
+      );
+    }catch(e){
+      print(e.toString());
+    }finally{
+      if(user != null){
+        var router = new MaterialPageRoute(
+            builder: (BuildContext context){
+              return new PickDate();
+            });
+        Navigator.of(context).push(router);
+      }else{
+        print("Authentication failed");
+      }
+    }
   }
 }
