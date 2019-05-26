@@ -25,7 +25,7 @@ class _DateState extends State<Date> {
   void initState() {
     super.initState();
 
-    bookModle = new BookModle("", 0);
+    bookModle = new BookModle("", false,false,false);
     databaseReference = database.reference().child("bookedTimes");
     databaseReference.onChildAdded.listen(_OnEntryAdded);
   }
@@ -61,7 +61,10 @@ class _DateState extends State<Date> {
 //                              backgroundColor: Colors.redAccent,
 //                            ),
                           title:  Text(snapshot.value['dateTime'].toString()),
-                          subtitle:  Text(snapshot.value['startTime'].toString()),
+                          subtitle:  Text("Morning :  ${snapshot.value['morning'].toString()}"),
+                          onTap: (){
+                            debugPrint(snapshot.value['dateTime'].toString());
+                          },
                         ),
                       );
                     }
@@ -86,7 +89,9 @@ class _DateState extends State<Date> {
 
   void handleSubmition() {
       bookModle.dateTime = "${widget.date}";
-      bookModle.startTime = 8;
+      bookModle.morning = false;
+      bookModle.evening = true;
+      bookModle.night= false;
 
       databaseReference.push().set(bookModle.toJson());
       print("added to the firebase");
