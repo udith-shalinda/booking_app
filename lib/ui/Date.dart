@@ -28,6 +28,16 @@ class _DateState extends State<Date> {
     bookModle = new BookModle("", false,false,false);
     databaseReference = database.reference().child("bookedTimes");
     databaseReference.onChildAdded.listen(_OnEntryAdded);
+    
+    try{
+      databaseReference.orderByChild("dateTime").equalTo("${widget.date}").once().then((DataSnapshot snapshot){
+        if(snapshot.value == null){
+          handleSubmition();
+        }
+      });
+    }catch(e){
+      print(e);
+    }
   }
 
   @override
@@ -51,7 +61,7 @@ class _DateState extends State<Date> {
           new ListView(
             children: <Widget>[
               new Container(
-                height: 500,
+                height: 400,
                 child: new FirebaseAnimatedList(
                     query: database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}"),
                     itemBuilder:(_, DataSnapshot snapshot,Animation<double> animation , int index){
@@ -61,7 +71,9 @@ class _DateState extends State<Date> {
 //                              backgroundColor: Colors.redAccent,
 //                            ),
                           title:  Text(snapshot.value['dateTime'].toString()),
-                          subtitle:  Text("Morning :  ${snapshot.value['morning'].toString()}"),
+                          subtitle:  Text("Morning :  ${snapshot.value['morning'].toString()} "
+                              "\n Evening :  ${snapshot.value['evening'].toString()}"
+                              "\n Night :  ${snapshot.value['night'].toString()}"),
                           onTap: (){
                             debugPrint(snapshot.value['dateTime'].toString());
                           },
@@ -71,9 +83,20 @@ class _DateState extends State<Date> {
                 ),
               ),
               new RaisedButton(
-                onPressed: handleSubmition,
-                child: new Text("print date"),
-              )
+                  onPressed: (){},
+                  child: new Text("Book Morning"),
+                  color: Colors.red,
+              ),
+              new RaisedButton(
+                onPressed: (){},
+                child: new Text("Book Evening"),
+                color: Colors.red,
+              ),
+              new RaisedButton(
+                onPressed: (){},
+                child: new Text("Book Night"),
+                color: Colors.red,
+              ),
             ],
           ),
         ],
@@ -90,11 +113,19 @@ class _DateState extends State<Date> {
   void handleSubmition() {
       bookModle.dateTime = "${widget.date}";
       bookModle.morning = false;
-      bookModle.evening = true;
+      bookModle.evening = false;
       bookModle.night= false;
 
       databaseReference.push().set(bookModle.toJson());
       print("added to the firebase");
+  }
+
+  void updatetheBooking(String time){
+    if(time == "morning"){
+      //update the morning
+    }else if(time == "evening"){
+      //update the evening;
+    }
   }
 }
 
