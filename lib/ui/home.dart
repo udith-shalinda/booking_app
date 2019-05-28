@@ -56,12 +56,15 @@ class _PickDateState extends State<PickDate> {
     if (picked != null)
       setState(() {
         selectedDate = picked;
-        print(picked);
-        var router = new MaterialPageRoute(
-            builder: (BuildContext context){
-              return new Date(date: picked);
-            });
-        Navigator.of(context).push(router);
+        Duration defference = selectedDate.difference(DateTime.now());
+        if(selectedDate.isAfter(DateTime.now())){
+          print("The defferense of the dates is : $defference");
+          var router = new MaterialPageRoute(
+              builder: (BuildContext context){
+                return new Date(date: picked);
+              });
+          Navigator.of(context).push(router);
+        }
       });
 
   }
