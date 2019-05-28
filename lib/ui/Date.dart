@@ -20,6 +20,7 @@ class _DateState extends State<Date> {
   BookModle bookModle;
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference ;
+  String key;
 
   @override
   void initState() {
@@ -28,12 +29,13 @@ class _DateState extends State<Date> {
     bookModle = new BookModle("", false,false,false);
     databaseReference = database.reference().child("bookedTimes");
     databaseReference.onChildAdded.listen(_OnEntryAdded);
-    
+
     try{
-      databaseReference.orderByChild("dateTime").equalTo("${widget.date}").once().then((DataSnapshot snapshot){
+      database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}").once().then((DataSnapshot snapshot){
         if(snapshot.value == null){
           handleSubmition();
         }
+        print(snapshot.value);
       });
     }catch(e){
       print(e);
@@ -65,6 +67,7 @@ class _DateState extends State<Date> {
                 child: new FirebaseAnimatedList(
                     query: database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}"),
                     itemBuilder:(_, DataSnapshot snapshot,Animation<double> animation , int index){
+//                      debugPrint("the index is : "+ index.toString());
                       return new Card(
                         child: new ListTile(
 //                            leading: CircleAvatar(
@@ -75,7 +78,7 @@ class _DateState extends State<Date> {
                               "\n Evening :  ${snapshot.value['evening'].toString()}"
                               "\n Night :  ${snapshot.value['night'].toString()}"),
                           onTap: (){
-                            debugPrint(snapshot.value['dateTime'].toString());
+                            debugPrint(snapshot.value['key'].toString());
                           },
                         ),
                       );
@@ -113,6 +116,7 @@ class _DateState extends State<Date> {
   void _OnEntryAdded(Event event) {
     setState(() {
       bookedDatesList.add(BookModle.fromSnapshot(event.snapshot));
+      key = event.snapshot.key;
     });
   }
 
@@ -131,10 +135,11 @@ class _DateState extends State<Date> {
       //update the morning
       bookModle.dateTime = "${widget.date}";
       bookModle.morning = true;
-      bookModle.evening = false;
-      bookModle.night= false;
+      bookModle.evening = true;
+      bookModle.night= true;
 
-      //databaseReference.orderByChild("dateTime").equalTo("${widget.date}");
+      databaseReference.child(key).remove();
+      databaseReference.child(key).update(bookModle.toJson());
     }else if(time == "evening"){
       //update the evening;
     }else{
