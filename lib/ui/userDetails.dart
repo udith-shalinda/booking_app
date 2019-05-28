@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../modle/user.dart';
+import './home.dart';
 
 class UserDetails extends StatefulWidget {
   String email;
@@ -79,5 +80,11 @@ class _UserDetailsState extends State<UserDetails> {
     user.email = "${widget.email}";
 
     databaseReference.push().set(user.toJson());
+
+    var router = new MaterialPageRoute(
+        builder: (BuildContext context){
+          return new PickDate();
+        });
+    Navigator.of(context).push(router);
   }
 }

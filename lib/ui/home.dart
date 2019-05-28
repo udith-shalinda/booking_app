@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './signuppage.dart';
 import './Date.dart';
 
 class PickDate extends StatefulWidget {
@@ -30,18 +29,30 @@ class _PickDateState extends State<PickDate> {
             ),
           ),
           new Center(
-            child: new RaisedButton(
-              onPressed:()=> _selectDate(context),
-              child: new Text("Pick a date"),
-            ),
-          ),
-          new Text(
-              "$selectedDate",
-            style: new TextStyle(
-              fontSize: 56,
-              color: Colors.redAccent
-            ),
+            child:new ListView(
+              children: <Widget>[
+                new Text(
+                  "$selectedDate",
+                  style: new TextStyle(
+                      fontSize: 56,
+                      color: Colors.redAccent
+                  ),
+                ),
+                new RaisedButton(
+                  onPressed:()=> _selectDate(context),
+                  child: new Text("Pick a date"),
+                ),
+                new RaisedButton(
+                  onPressed:()=> _selectDate(context),
+                  child: new Text("Feed"),
+                ),
+                new RaisedButton(
+                  onPressed:()=> _selectDate(context),
+                  child: new Text("Make a challenge"),
+                ),
+              ],
           )
+          ),
         ],
       ),
     );
