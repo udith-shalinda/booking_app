@@ -89,22 +89,24 @@ class _DateState extends State<Date> {
                   onPressed: (){
                     updatetheBooking("morning");
                   },
-                  child: new Text("Book Morning"),
-                  color: Colors.red,
+                  child: new Text(bookModle.morning == true ? "Booked": "Book Morning"),
+                  color: (bookModle.morning == false)? Colors.red : Colors.blue,
+
               ),
               new RaisedButton(
                 onPressed: (){
                   updatetheBooking("evening");
                 },
-                child: new Text("Book Evening"),
-                color: Colors.red,
+                child: new Text(bookModle.evening == true ? "Booked": "Book Evening"),
+                color: (bookModle.evening == false)? Colors.red : Colors.blue,
               ),
               new RaisedButton(
                 onPressed: (){
                   updatetheBooking("night");
                 },
-                child: new Text("Book Night"),
-                color: Colors.red,
+                child: new Text(bookModle.night == true ? "Booked": "Book Night"),
+                color: (bookModle.night == false)? Colors.red : Colors.blue,
+
               ),
             ],
           ),
@@ -117,6 +119,9 @@ class _DateState extends State<Date> {
     setState(() {
       bookedDatesList.add(BookModle.fromSnapshot(event.snapshot));
       key = event.snapshot.key;
+      bookModle.morning = event.snapshot.value['morning'];
+      bookModle.evening = event.snapshot.value['evening'];
+      bookModle.night = event.snapshot.value['night'];
     });
   }
 
@@ -135,15 +140,24 @@ class _DateState extends State<Date> {
       //update the morning
       bookModle.dateTime = "${widget.date}";
       bookModle.morning = true;
-      bookModle.evening = true;
-      bookModle.night= true;
 
       databaseReference.child(key).remove();
       databaseReference.child(key).update(bookModle.toJson());
     }else if(time == "evening"){
       //update the evening;
+      bookModle.dateTime = "${widget.date}";
+      bookModle.evening = true;
+
+      databaseReference.child(key).remove();
+      databaseReference.child(key).update(bookModle.toJson());
     }else{
       //update the night;
+      print(bookModle.morning);
+      bookModle.dateTime = "${widget.date}";
+      bookModle.night= true;
+
+      databaseReference.child(key).remove();
+      databaseReference.child(key).update(bookModle.toJson());
     }
   }
 }
