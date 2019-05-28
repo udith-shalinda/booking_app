@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
 
 import './home.dart';
+import './userDetails.dart';
 
 final FirebaseDatabase database = FirebaseDatabase.instance;
 final GoogleSignIn googleSignIn = new GoogleSignIn();
@@ -103,7 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
         print("user created");
         var router = new MaterialPageRoute(
             builder: (BuildContext context){
-              return new PickDate();
+              return new UserDetails(email:_username.text);
             });
         Navigator.of(context).push(router);
       }else{

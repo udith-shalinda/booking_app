@@ -132,7 +132,6 @@ class _DateState extends State<Date> {
       bookModle.night= false;
 
       databaseReference.push().set(bookModle.toJson());
-      print("added to the firebase");
   }
 
   void updatetheBooking(String time){
