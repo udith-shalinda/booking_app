@@ -6,7 +6,7 @@ import '../modle/bookModle.dart';
 
 
 class Date extends StatefulWidget {
-  final DateTime date;
+  final String date;
   Date({Key key,this.date}):super(key :key);
 
   @override

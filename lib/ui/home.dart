@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:date_format/date_format.dart';
 
 import './Date.dart';
 
@@ -71,7 +72,7 @@ class _PickDateState extends State<PickDate> {
         if(selectedDate.isAfter(DateTime.now())){
           var router = new MaterialPageRoute(
               builder: (BuildContext context){
-                return new Date(date: picked);
+                return new Date(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]));
               });
           Navigator.of(context).push(router);
         }

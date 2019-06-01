@@ -7,7 +7,7 @@ class ChallengeFeed extends StatefulWidget {
 
 class _ChallengeFeedState extends State<ChallengeFeed> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Container();
   }
 }
