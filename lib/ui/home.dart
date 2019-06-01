@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 
 import './Date.dart';
+import './feed.dart';
 
 class PickDate extends StatefulWidget {
   @override
@@ -44,7 +45,7 @@ class _PickDateState extends State<PickDate> {
                   child: new Text("Pick a date"),
                 ),
                 new RaisedButton(
-                  onPressed:()=> _selectDate(context),
+                  onPressed:_gotoFeed,
                   child: new Text("Feed"),
                 ),
                 new RaisedButton(
@@ -78,5 +79,12 @@ class _PickDateState extends State<PickDate> {
         }
       });
 
+  }
+  void _gotoFeed(){
+    var router = new MaterialPageRoute(
+        builder: (BuildContext context){
+          return new ChallengeFeed();
+        });
+    Navigator.of(context).push(router);
   }
 }

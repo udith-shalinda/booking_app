@@ -8,6 +8,29 @@ class ChallengeFeed extends StatefulWidget {
 class _ChallengeFeedState extends State<ChallengeFeed> {
   @override
   Widget build(BuildContext context){
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.greenAccent,
+        title: new Text("Schedule of Date"),
+        centerTitle: true,
+      ),
+      body: new Stack(
+        children: <Widget>[
+          new Center(
+          child: new Image.asset(
+            'images/cover_one.jpg',
+            fit: BoxFit.cover,
+            width: 500,
+            height: 1000,
+            ),
+          ),
+          new ListView(
+            children: <Widget>[
+              new Text("hello there")
+            ],
+          )
+        ]
+      )
+    );
   }
 }
