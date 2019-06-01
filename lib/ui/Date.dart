@@ -7,7 +7,8 @@ import '../modle/bookModle.dart';
 
 class Date extends StatefulWidget {
   final String date;
-  Date({Key key,this.date}):super(key :key);
+  final String userEmail;
+  Date({Key key,this.date,this.userEmail}):super(key :key);
 
   @override
   _DateState createState() => _DateState();
@@ -19,14 +20,14 @@ class _DateState extends State<Date> {
   List<BookModle> bookedDatesList = List();
   BookModle bookModle;
   final FirebaseDatabase database = FirebaseDatabase.instance;
-  DatabaseReference databaseReference ;
+  DatabaseReference databaseReference;
   String key;
 
   @override
   void initState() {
     super.initState();
 
-    bookModle = new BookModle("", false,false,false);
+    bookModle = new BookModle("", false,false,false,'','','');
     databaseReference = database.reference().child("bookedTimes");
     databaseReference.onChildAdded.listen(_OnEntryAdded);
 
@@ -74,9 +75,9 @@ class _DateState extends State<Date> {
 //                              backgroundColor: Colors.redAccent,
 //                            ),
                           title:  Text(snapshot.value['dateTime'].toString()),
-                          subtitle:  Text("Morning :  ${snapshot.value['morning'].toString()} "
-                              "\n Evening :  ${snapshot.value['evening'].toString()}"
-                              "\n Night :  ${snapshot.value['night'].toString()}"),
+                          subtitle:  Text("Morning :  ${snapshot.value['morning'].toString()}  ${snapshot.value['morningPlayer'].toString()} "
+                              "\n Evening :  ${snapshot.value['evening'].toString() } ${snapshot.value['eveningPlayer'].toString()}"
+                              "\n Night :  ${snapshot.value['night'].toString()} ${snapshot.value['nightPlayer'].toString()}"),
                           onTap: (){
                             debugPrint(snapshot.value['key'].toString());
                           },
@@ -139,6 +140,7 @@ class _DateState extends State<Date> {
       //update the morning
       bookModle.dateTime = "${widget.date}";
       bookModle.morning = true;
+      bookModle.mornigPlayer = widget.userEmail;
 
       databaseReference.child(key).remove();
       databaseReference.child(key).update(bookModle.toJson());
@@ -146,6 +148,7 @@ class _DateState extends State<Date> {
       //update the evening;
       bookModle.dateTime = "${widget.date}";
       bookModle.evening = true;
+      bookModle.eveningPlayer = widget.userEmail;
 
       databaseReference.child(key).remove();
       databaseReference.child(key).update(bookModle.toJson());
@@ -154,6 +157,7 @@ class _DateState extends State<Date> {
       print(bookModle.morning);
       bookModle.dateTime = "${widget.date}";
       bookModle.night= true;
+      bookModle.nightPlayer = widget.userEmail;
 
       databaseReference.child(key).remove();
       databaseReference.child(key).update(bookModle.toJson());

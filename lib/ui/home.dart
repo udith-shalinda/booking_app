@@ -5,6 +5,10 @@ import './Date.dart';
 import './feed.dart';
 
 class PickDate extends StatefulWidget {
+
+  final String userEmail;
+  PickDate({Key key,this.userEmail}):super(key :key);
+
   @override
   _PickDateState createState() => _PickDateState();
 }
@@ -73,12 +77,11 @@ class _PickDateState extends State<PickDate> {
         if(selectedDate.isAfter(DateTime.now())){
           var router = new MaterialPageRoute(
               builder: (BuildContext context){
-                return new Date(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]));
+                return new Date(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]),userEmail:widget.userEmail);
               });
           Navigator.of(context).push(router);
         }
       });
-
   }
   void _gotoFeed(){
     var router = new MaterialPageRoute(
@@ -87,4 +90,25 @@ class _PickDateState extends State<PickDate> {
         });
     Navigator.of(context).push(router);
   }
+
+   Future<Null> _makeAChallange(BuildContext context) async {
+     final DateTime picked = await showDatePicker(
+         context: context,
+         initialDate : DateTime.now(),
+         firstDate: DateTime(2019, 5),
+         lastDate: DateTime(2101));
+     if (picked != null)
+       setState(() {
+         selectedDate = picked;
+         if(selectedDate.isAfter(DateTime.now())){
+           var router = new MaterialPageRoute(
+               builder: (BuildContext context){
+                 return new Date(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]),userEmail:widget.userEmail);     //this should be changed;
+               });
+           Navigator.of(context).push(router);
+         }
+       });
+   }
+
+
 }

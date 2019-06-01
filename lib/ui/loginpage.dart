@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
       if(user != null){
         var router = new MaterialPageRoute(
             builder: (BuildContext context){
-              return new PickDate();
+              return new PickDate(userEmail:_username.text);
             });
         Navigator.of(context).push(router);
       }else{
