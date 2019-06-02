@@ -3,7 +3,9 @@ import 'package:date_format/date_format.dart';
 
 import './Date.dart';
 import './feed.dart';
+import './challange.dart';
 
+//picking a date to book
 class PickDate extends StatefulWidget {
 
   final String userEmail;
@@ -53,7 +55,7 @@ class _PickDateState extends State<PickDate> {
                   child: new Text("Feed"),
                 ),
                 new RaisedButton(
-                  onPressed:()=> _selectDate(context),
+                  onPressed:()=> _makeAChallange(context),
                   child: new Text("Make a challenge"),
                 ),
               ],
@@ -103,7 +105,7 @@ class _PickDateState extends State<PickDate> {
          if(selectedDate.isAfter(DateTime.now())){
            var router = new MaterialPageRoute(
                builder: (BuildContext context){
-                 return new Date(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]),userEmail:widget.userEmail);     //this should be changed;
+                 return new createChallange(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]),userEmail:widget.userEmail);     //this should be changed;
                });
            Navigator.of(context).push(router);
          }
