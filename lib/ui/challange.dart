@@ -109,14 +109,92 @@ class _createChallangeState extends State<createChallange> {
 
 
 
-//class showChallanges extends StatefulWidget {
-//  @override
-//  _showChallangesState createState() => _showChallangesState();
-//}
-//
-//class _showChallangesState extends State<showChallanges> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container();
-//  }
-//}
+
+
+
+
+
+
+// Another widget;
+
+
+class showChallanges extends StatefulWidget {
+  @override
+  _showChallangesState createState() => _showChallangesState();
+}
+
+class _showChallangesState extends State<showChallanges> {
+  List<ChallangeModle> challangsList= List();
+  final FirebaseDatabase database = FirebaseDatabase.instance;
+  DatabaseReference databaseReference;
+
+
+  @override
+  void initState() {
+    super.initState();
+    databaseReference = database.reference().child("Challanges");
+    databaseReference.onChildAdded.listen(_OnEntryAdded);
+
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.greenAccent,
+          title: new Text("Challangs feed"),
+          centerTitle: true,
+        ),
+        body: new Stack(
+            children: <Widget>[
+              new Center(
+                child: new Image.asset(
+                  'images/cover_one.jpg',
+                  fit: BoxFit.cover,
+                  width:  MediaQuery.of(context).size.width,
+                  height:  MediaQuery.of(context).size.height,
+                ),
+              ),
+              new ListView(
+                children: <Widget>[
+                  new Container(
+                    height:  MediaQuery.of(context).size.height,
+                    child: new FirebaseAnimatedList(
+                        query: databaseReference,
+                        itemBuilder: (_, DataSnapshot snapshot,Animation<double> animation , int index){
+                          return new Card(
+                            child: new ListTile(
+//                            leading: CircleAvatar(
+//                              backgroundColor: Colors.redAccent,
+//                            ),
+                              title:  Text(snapshot.value['dateTime'].toString()),
+                              subtitle:  Text("Morning :  ${snapshot.value['time'].toString()}  "
+                                  "\n Count :  ${snapshot.value['count'].toString() } "
+                                  "\n Creater :  ${snapshot.value['creater'].toString()}"),
+                              onTap: (){
+                                addToTheMatch(snapshot.key,int.parse(snapshot.value['count'].toString()));
+                              },
+                            ),
+                          );
+                        }
+                    ),
+                  ),
+
+                ],
+              )
+            ]
+        )
+    );
+  }
+
+
+  void _OnEntryAdded(Event event) {
+    setState(() {
+      challangsList.add(ChallangeModle.fromSnapshot(event.snapshot));
+    });
+  }
+  void addToTheMatch(String key,int count){
+    databaseReference.child(key).child('count').set(count+1);
+//    databaseReference.child(key).push();
+  }
+}

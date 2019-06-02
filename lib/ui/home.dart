@@ -58,6 +58,10 @@ class _PickDateState extends State<PickDate> {
                   onPressed:()=> _makeAChallange(context),
                   child: new Text("Make a challenge"),
                 ),
+                new RaisedButton(
+                  onPressed: _showChallanges,
+                  child: new Text("show challenges"),
+                ),
               ],
           )
           ),
@@ -91,6 +95,14 @@ class _PickDateState extends State<PickDate> {
           return new ChallengeFeed();
         });
     Navigator.of(context).push(router);
+  }
+
+   _showChallanges(){
+   var router = new MaterialPageRoute(
+       builder: (BuildContext context){
+         return new showChallanges();
+       });
+   Navigator.of(context).push(router);
   }
 
    Future<Null> _makeAChallange(BuildContext context) async {

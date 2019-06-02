@@ -60,7 +60,7 @@ class _ChallengeFeedState extends State<ChallengeFeed> {
                               "\n Evening :  ${snapshot.value['evening'].toString() } ${snapshot.value['eveningPlayer'].toString()}"
                               "\n Night :  ${snapshot.value['night'].toString()} ${snapshot.value['nightPlayer'].toString()}"),
                           onTap: (){
-                            debugPrint(snapshot.value['key'].toString());
+                            debugPrint(snapshot.key);
                           },
                         ),
                       );
