@@ -138,29 +138,19 @@ class _DateState extends State<Date> {
   void updatetheBooking(String time){
     if(time == "morning"){
       //update the morning
-      bookModle.dateTime = "${widget.date}";
       bookModle.morning = true;
-      bookModle.mornigPlayer = widget.userEmail;
-
-      databaseReference.child(key).remove();
-      databaseReference.child(key).update(bookModle.toJson());
+      databaseReference.child(key).child("morning").set(true);
+      databaseReference.child(key).child("morningPlayer").set(widget.userEmail);
     }else if(time == "evening"){
       //update the evening;
-      bookModle.dateTime = "${widget.date}";
       bookModle.evening = true;
-      bookModle.eveningPlayer = widget.userEmail;
-
-      databaseReference.child(key).remove();
-      databaseReference.child(key).update(bookModle.toJson());
+      databaseReference.child(key).child("evening").set(true);
+      databaseReference.child(key).child("eveningPlayer").set(widget.userEmail);
     }else{
       //update the night;
-      print(bookModle.morning);
-      bookModle.dateTime = "${widget.date}";
-      bookModle.night= true;
-      bookModle.nightPlayer = widget.userEmail;
-
-      databaseReference.child(key).remove();
-      databaseReference.child(key).update(bookModle.toJson());
+      bookModle.night = true;
+      databaseReference.child(key).child("night").set(true);
+      databaseReference.child(key).child("nightPlayer").set(widget.userEmail);
     }
   }
 }

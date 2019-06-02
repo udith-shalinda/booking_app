@@ -20,6 +20,7 @@ class _createChallangeState extends State<createChallange> {
   ChallangeModle challangeModle;
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference;
+  List<String> players;
   String key;
 
     var _time = new TextEditingController();
@@ -30,7 +31,7 @@ class _createChallangeState extends State<createChallange> {
     super.initState();
 
     databaseReference = database.reference().child("Challanges");
-    challangeModle = new ChallangeModle('', '', '', 0);
+    challangeModle = new ChallangeModle('', '', '', 0,players);
 //    try{
 //      database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}").once().then((DataSnapshot snapshot){
 //        if(snapshot.value == null){
@@ -100,6 +101,8 @@ class _createChallangeState extends State<createChallange> {
     challangeModle.creater = "${widget.userEmail}";
     challangeModle.time = "${_time.text}";
     challangeModle.count = int.parse(_countofyourteam.text);
+    players.add("${widget.userEmail}");
+    challangeModle.players = players;
 
     databaseReference.push().set(challangeModle.toJson());
   }
