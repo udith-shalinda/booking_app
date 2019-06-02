@@ -39,14 +39,14 @@ class _ChallengeFeedState extends State<ChallengeFeed> {
           child: new Image.asset(
             'images/cover_one.jpg',
             fit: BoxFit.cover,
-            width: 500,
-            height: 1000,
+            width:  MediaQuery.of(context).size.width,
+            height:  MediaQuery.of(context).size.height,
             ),
           ),
           new ListView(
             children: <Widget>[
               new Container(
-                height: 600,
+                height:  MediaQuery.of(context).size.height,
                 child: new FirebaseAnimatedList(
                     query: databaseReference,
                     itemBuilder: (_, DataSnapshot snapshot,Animation<double> animation , int index){
