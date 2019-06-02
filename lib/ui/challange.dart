@@ -142,7 +142,7 @@ class _showChallangesState extends State<showChallanges> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.greenAccent,
-          title: new Text("Challangs feed"),
+          title: new Text("Challengs feed"),
           centerTitle: true,
         ),
         body: new Stack(
@@ -168,11 +168,11 @@ class _showChallangesState extends State<showChallanges> {
 //                              backgroundColor: Colors.redAccent,
 //                            ),
                               title:  Text(snapshot.value['dateTime'].toString()),
-                              subtitle:  Text("Morning :  ${snapshot.value['time'].toString()}  "
+                              subtitle:  Text("Time :  ${snapshot.value['time'].toString()}  "
                                   "\n Count :  ${snapshot.value['count'].toString() } "
                                   "\n Creater :  ${snapshot.value['creater'].toString()}"),
                               onTap: (){
-                                addToTheMatch(snapshot.key,int.parse(snapshot.value['count'].toString()));
+                                addToTheMatch(snapshot.key,snapshot.value['count']);
                               },
                             ),
                           );
@@ -195,6 +195,6 @@ class _showChallangesState extends State<showChallanges> {
   }
   void addToTheMatch(String key,int count){
     databaseReference.child(key).child('count').set(count+1);
-//    databaseReference.child(key).push();
+
   }
 }
