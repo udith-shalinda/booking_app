@@ -31,7 +31,7 @@ class _createChallangeState extends State<createChallange> {
     super.initState();
 
     databaseReference = database.reference().child("Challanges");
-    challangeModle = new ChallangeModle('', '', '', 0,playerslist);
+    challangeModle = new ChallangeModle('', '', 0,playerslist);
 //    try{
 //      database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}").once().then((DataSnapshot snapshot){
 //        if(snapshot.value == null){
@@ -98,7 +98,6 @@ class _createChallangeState extends State<createChallange> {
 
   void makeChallange() {
     challangeModle.dateTime = "${widget.date}";
-    challangeModle.creater = "${widget.userEmail}";
     challangeModle.time = "${_time.text}";
 //    challangeModle.count = int.parse(_countofyourteam.text);
     challangeModle.count = 1;
