@@ -61,6 +61,11 @@ class _PickDateState extends State<PickDate> {
                 new RaisedButton(
                   onPressed: _showChallanges,
                   child: new Text("show challenges"),
+                  color: Colors.lightBlueAccent,
+                  splashColor: Colors.redAccent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)
+                  ),
                 ),
               ],
           )
@@ -100,7 +105,7 @@ class _PickDateState extends State<PickDate> {
    _showChallanges(){
    var router = new MaterialPageRoute(
        builder: (BuildContext context){
-         return new showChallanges();
+         return new showChallanges(userEmail:widget.userEmail);
        });
    Navigator.of(context).push(router);
   }

@@ -20,7 +20,7 @@ class _createChallangeState extends State<createChallange> {
   ChallangeModle challangeModle;
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference;
-  List<String> players;
+  List<String> playerslist = [];
   String key;
 
     var _time = new TextEditingController();
@@ -31,7 +31,7 @@ class _createChallangeState extends State<createChallange> {
     super.initState();
 
     databaseReference = database.reference().child("Challanges");
-    challangeModle = new ChallangeModle('', '', '', 0,players);
+    challangeModle = new ChallangeModle('', '', '', 0,playerslist);
 //    try{
 //      database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}").once().then((DataSnapshot snapshot){
 //        if(snapshot.value == null){
@@ -100,9 +100,10 @@ class _createChallangeState extends State<createChallange> {
     challangeModle.dateTime = "${widget.date}";
     challangeModle.creater = "${widget.userEmail}";
     challangeModle.time = "${_time.text}";
-    challangeModle.count = int.parse(_countofyourteam.text);
-    players.add("${widget.userEmail}");
-    challangeModle.players = players;
+//    challangeModle.count = int.parse(_countofyourteam.text);
+    challangeModle.count = 1;
+    playerslist.add("${widget.userEmail}");
+    challangeModle.players = playerslist;
 
     databaseReference.push().set(challangeModle.toJson());
   }
@@ -122,6 +123,10 @@ class _createChallangeState extends State<createChallange> {
 
 
 class showChallanges extends StatefulWidget {
+
+  final String userEmail;
+  showChallanges({Key key,this.userEmail}):super(key:key);
+
   @override
   _showChallangesState createState() => _showChallangesState();
 }
@@ -175,7 +180,12 @@ class _showChallangesState extends State<showChallanges> {
                                   "\n Count :  ${snapshot.value['count'].toString() } "
                                   "\n Creater :  ${snapshot.value['creater'].toString()}"),
                               onTap: (){
-                                addToTheMatch(snapshot.key,snapshot.value['count']);
+                                List<String> list = [];
+                                for(int i=0;i<snapshot.value['count'];i++){
+                                  list.add(snapshot.value['players'][i].toString());
+                                }
+                                addToTheMatch(snapshot.key,snapshot.value['count'],list);
+
                               },
                             ),
                           );
@@ -196,7 +206,9 @@ class _showChallangesState extends State<showChallanges> {
       challangsList.add(ChallangeModle.fromSnapshot(event.snapshot));
     });
   }
-  void addToTheMatch(String key,int count){
+  void addToTheMatch(String key,int count,List<String> list){
+    list.add("${widget.userEmail}");
+    databaseReference.child(key).child('players').set(list);
     databaseReference.child(key).child('count').set(count+1);
 
   }
