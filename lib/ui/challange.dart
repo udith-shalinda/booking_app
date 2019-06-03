@@ -177,14 +177,20 @@ class _showChallangesState extends State<showChallanges> {
                               title:  Text(snapshot.value['dateTime'].toString()),
                               subtitle:  Text("Time :  ${snapshot.value['time'].toString()}  "
                                   "\n Count :  ${snapshot.value['count'].toString() } "
-                                  "\n Creater :  ${snapshot.value['creater'].toString()}"),
+                                  ),
                               onTap: (){
                                 List<String> list = [];
+                                bool isAlreadypart = false;
                                 for(int i=0;i<snapshot.value['count'];i++){
                                   list.add(snapshot.value['players'][i].toString());
+                                  if(widget.userEmail == snapshot.value['players'][i].toString()){
+                                    isAlreadypart = true;
+                                  }
                                 }
-                                addToTheMatch(snapshot.key,snapshot.value['count'],list);
-
+                                if(!isAlreadypart){
+                                  list.add(widget.userEmail);
+                                  addToTheMatch(snapshot.key,snapshot.value['count'],list);
+                                }
                               },
                             ),
                           );
@@ -206,7 +212,7 @@ class _showChallangesState extends State<showChallanges> {
     });
   }
   void addToTheMatch(String key,int count,List<String> list){
-    list.add("${widget.userEmail}");
+
     databaseReference.child(key).child('players').set(list);
     databaseReference.child(key).child('count').set(count+1);
 
