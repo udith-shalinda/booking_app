@@ -139,11 +139,11 @@ class _showChallangesState extends State<showChallanges> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.greenAccent,
-          title: new Text("Challengs feed"),
-          centerTitle: true,
-        ),
+//        appBar: AppBar(
+//          backgroundColor: Colors.greenAccent,
+//          title: new Text("Challengs feed"),
+//          centerTitle: true,
+//        ),
         body: new Stack(
             children: <Widget>[
               new Center(
@@ -193,7 +193,14 @@ class _showChallangesState extends State<showChallanges> {
                 ],
               )
             ]
-        )
+        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.pink,
+      ),
     );
   }
 

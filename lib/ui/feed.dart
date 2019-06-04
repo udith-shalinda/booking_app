@@ -28,11 +28,11 @@ class _ChallengeFeedState extends State<ChallengeFeed> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.greenAccent,
-        title: new Text("News feed"),
-        centerTitle: true,
-      ),
+//      appBar: AppBar(
+//        backgroundColor: Colors.greenAccent,
+//        title: new Text("News feed"),
+//        centerTitle: true,
+//      ),
       body: new Stack(
         children: <Widget>[
           new Center(
@@ -71,7 +71,14 @@ class _ChallengeFeedState extends State<ChallengeFeed> {
             ],
           )
         ]
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.pink,
+      ),
     );
   }
 

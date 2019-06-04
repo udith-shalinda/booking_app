@@ -39,6 +39,8 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
         title: new Text("Home"),
         centerTitle: true,
         bottom: TabBar(
+            indicatorColor: Colors.redAccent,
+//          labelColor: Colors.black,
           controller: _controller,
           tabs: <Tab>[
             new Tab(icon: new Icon(Icons.home),),
