@@ -24,7 +24,6 @@ class _createChallangeState extends State<createChallange> {
   String key;
 
     var _time = new TextEditingController();
-    var _countofyourteam= new TextEditingController();
 
   @override
   void initState() {
@@ -72,14 +71,7 @@ class _createChallangeState extends State<createChallange> {
                   ),
                 ),
               ),
-              new ListTile(
-                title: new TextField(
-                  controller: _countofyourteam,
-                  decoration: new InputDecoration(
-                      labelText: "Enter the password"
-                  ),
-                ),
-              ),
+
               new ListTile(
                   title: new RaisedButton(
                     onPressed: makeChallange,
