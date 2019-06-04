@@ -15,16 +15,36 @@ class PickDate extends StatefulWidget {
   _PickDateState createState() => _PickDateState();
 }
 
-class _PickDateState extends State<PickDate> {
+class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin {
    DateTime selectedDate = DateTime.now();
+   TabController _controller;
 
-  @override
+   @override
+   void initState() {
+     super.initState();
+      _controller = new TabController(length: 2, vsync: this);
+   }
+
+
+   @override
+   void dispose() {
+      _controller.dispose();
+   }
+
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.greenAccent,
         title: new Text("Home"),
         centerTitle: true,
+        bottom: TabBar(
+          controller: _controller,
+          tabs: <Tab>[
+            new Tab(icon: new Icon(Icons.home),),
+            new Tab(icon: new Icon(Icons.email),)
+          ],
+        ),
       ),
       body: new Stack(
         children: <Widget>[
@@ -72,10 +92,19 @@ class _PickDateState extends State<PickDate> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.pink,
+      ),
     );
   }
 
-  Future<Null> _selectDate(BuildContext context) async {
+
+
+   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate : DateTime.now(),
