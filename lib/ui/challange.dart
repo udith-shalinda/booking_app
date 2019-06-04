@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:date_format/date_format.dart';
 
-import '../modle/bookModle.dart';
 import '../modle/challangeModle.dart';
 
 
@@ -123,6 +123,8 @@ class showChallanges extends StatefulWidget {
 }
 
 class _showChallangesState extends State<showChallanges> {
+
+  DateTime selectedDate = DateTime.now();
   List<ChallangeModle> challangsList= List();
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference;
@@ -196,7 +198,7 @@ class _showChallangesState extends State<showChallanges> {
         ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
+          _makeAChallange(context);
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.pink,
@@ -211,9 +213,26 @@ class _showChallangesState extends State<showChallanges> {
     });
   }
   void addToTheMatch(String key,int count,List<String> list){
-
     databaseReference.child(key).child('players').set(list);
     databaseReference.child(key).child('count').set(count+1);
+  }
 
+  Future<Null> _makeAChallange(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate : DateTime.now(),
+        firstDate: DateTime(2019, 5),
+        lastDate: DateTime(2101));
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        if(selectedDate.isAfter(DateTime.now())){
+          var router = new MaterialPageRoute(
+              builder: (BuildContext context){
+                return new createChallange(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]),userEmail:widget.userEmail);     //this should be changed;
+              });
+          Navigator.of(context).push(router);
+        }
+      });
   }
 }
