@@ -1,5 +1,11 @@
+import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
+
+
 
 import '../modle/user.dart';
 import './home.dart';
@@ -17,6 +23,7 @@ class _UserDetailsState extends State<UserDetails> {
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference ;
   User user;
+  File _image;
 
   var _name = new TextEditingController();
   var _mobile = new TextEditingController();
@@ -29,7 +36,7 @@ class _UserDetailsState extends State<UserDetails> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.greenAccent,
@@ -62,6 +69,11 @@ class _UserDetailsState extends State<UserDetails> {
                   ),
                 ),
               ),
+              new RaisedButton(
+                  child: new Text("Upload an image"),
+                  onPressed: (){
+                    _pickSaveImage();
+                  }),
               new ListTile(
                 title: new RaisedButton(
                     onPressed: uploadUserDetails,
@@ -87,4 +99,12 @@ class _UserDetailsState extends State<UserDetails> {
         });
     Navigator.of(context).push(router);
   }
+  Future<String> _pickSaveImage() async {
+    File imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
+    StorageReference ref =
+    FirebaseStorage.instance.ref().child('profileImages');
+    StorageUploadTask uploadTask = ref.putFile(imageFile);
+    return await (await uploadTask.onComplete).ref.getDownloadURL();
+  }
+
 }
