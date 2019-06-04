@@ -128,7 +128,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
   void _gotoFeed(){
     var router = new MaterialPageRoute(
         builder: (BuildContext context){
-          return new ChallengeFeed();
+          return new NewsFeed(userEmail: widget.userEmail,);
         });
     Navigator.of(context).push(router);
   }

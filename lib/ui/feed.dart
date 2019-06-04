@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:date_format/date_format.dart';
 
 import '../modle/bookModle.dart';
+import './Date.dart';
 
-class ChallengeFeed extends StatefulWidget {
+class NewsFeed extends StatefulWidget {
+  final String userEmail;
+  NewsFeed({Key key,this.userEmail}):super(key :key);
+
   @override
-  _ChallengeFeedState createState() => _ChallengeFeedState();
+  _NewsFeedState createState() => _NewsFeedState();
 }
 
-class _ChallengeFeedState extends State<ChallengeFeed> {
+class _NewsFeedState extends State<NewsFeed> {
 
+  DateTime selectedDate = DateTime.now();
   List<BookModle> bookedDatesList = List();
   //BookModle bookModle;
   final FirebaseDatabase database = FirebaseDatabase.instance;
@@ -74,7 +80,7 @@ class _ChallengeFeedState extends State<ChallengeFeed> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
+          return _selectDate(context);
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.pink,
@@ -87,5 +93,24 @@ class _ChallengeFeedState extends State<ChallengeFeed> {
     setState(() {
       bookedDatesList.add(BookModle.fromSnapshot(event.snapshot));
     });
+  }
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate : DateTime.now(),
+        firstDate: DateTime(2019, 5),
+        lastDate: DateTime(2101));
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        Duration defference = selectedDate.difference(DateTime.now());
+        if(selectedDate.isAfter(DateTime.now())){
+          var router = new MaterialPageRoute(
+              builder: (BuildContext context){
+                return new Date(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]),userEmail:widget.userEmail);
+              });
+          Navigator.of(context).push(router);
+        }
+      });
   }
 }
