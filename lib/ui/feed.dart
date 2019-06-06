@@ -34,6 +34,7 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
 //      appBar: AppBar(
 //        backgroundColor: Colors.greenAccent,
 //        title: new Text("News feed"),
@@ -41,14 +42,14 @@ class _NewsFeedState extends State<NewsFeed> {
 //      ),
       body: new Stack(
         children: <Widget>[
-          new Center(
-          child: new Image.asset(
-            'images/cover_one.jpg',
-            fit: BoxFit.cover,
-            width:  MediaQuery.of(context).size.width,
-            height:  MediaQuery.of(context).size.height - 100,
-            ),
-          ),
+//          new Center(
+//          child: new Image.asset(
+//            'images/cover_one.jpg',
+//            fit: BoxFit.cover,
+//            width:  MediaQuery.of(context).size.width,
+//            height:  MediaQuery.of(context).size.height - 100,
+//            ),
+//          ),
           new ListView(
             children: <Widget>[
               new Container(
@@ -57,18 +58,35 @@ class _NewsFeedState extends State<NewsFeed> {
                     query: databaseReference,
                     itemBuilder: (_, DataSnapshot snapshot,Animation<double> animation , int index){
                       return new Card(
-                        child: new ListTile(
-//                            leading: CircleAvatar(
-//                              backgroundColor: Colors.redAccent,
-//                            ),
-                          title:  Text(snapshot.value['dateTime'].toString()),
-                          subtitle:  Text("Morning :  ${snapshot.value['morning'].toString()}  ${snapshot.value['morningPlayer'].toString()} "
-                              "\n Evening :  ${snapshot.value['evening'].toString() } ${snapshot.value['eveningPlayer'].toString()}"
-                              "\n Night :  ${snapshot.value['night'].toString()} ${snapshot.value['nightPlayer'].toString()}"),
-                          onTap: (){
-                            bookADate(snapshot.value['dateTime']);
-                          },
-                        ),
+                        elevation: 8.0,
+                        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                        child: new Container(
+                          decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+                          child: new ListTile(
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                            leading: Container(
+                                padding: EdgeInsets.only(right: 12.0),
+                                decoration: new BoxDecoration(
+                                border: new Border(
+                                    right: new BorderSide(width: 1.0, color: Colors.white24))),
+                            child: Icon(Icons.autorenew, color: Colors.white),
+                          ),
+                            title:  Text(
+                                snapshot.value['dateTime'].toString(),
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle:  Text("Morning :  ${snapshot.value['morning'].toString()}  ${snapshot.value['morningPlayer'].toString()} "
+                                "\n Evening :  ${snapshot.value['evening'].toString() } ${snapshot.value['eveningPlayer'].toString()}"
+                                "\n Night :  ${snapshot.value['night'].toString()} ${snapshot.value['nightPlayer'].toString()}",
+                                style: TextStyle(color: Colors.white)
+                            ),
+                            trailing: new Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+
+                            onTap: (){
+                              bookADate(snapshot.value['dateTime']);
+                            },
+                          ),
+                        )
                       );
                     }
                 ),
