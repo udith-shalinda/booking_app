@@ -66,7 +66,7 @@ class _NewsFeedState extends State<NewsFeed> {
                               "\n Evening :  ${snapshot.value['evening'].toString() } ${snapshot.value['eveningPlayer'].toString()}"
                               "\n Night :  ${snapshot.value['night'].toString()} ${snapshot.value['nightPlayer'].toString()}"),
                           onTap: (){
-                            debugPrint(snapshot.key);
+                            bookADate(snapshot.value['dateTime']);
                           },
                         ),
                       );
@@ -113,4 +113,13 @@ class _NewsFeedState extends State<NewsFeed> {
         }
       });
   }
+
+  void bookADate(String date){
+    var router = new MaterialPageRoute(
+        builder: (BuildContext context){
+          return new Date(date: date ,userEmail:widget.userEmail);
+        });
+    Navigator.of(context).push(router);
+  }
+
 }
