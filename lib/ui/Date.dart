@@ -35,8 +35,11 @@ class _DateState extends State<Date> {
       database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}").once().then((DataSnapshot snapshot){
         if(snapshot.value == null){
           handleSubmition();
+        }else{
+          print(snapshot.value);
+          print(snapshot.value);
         }
-        print(snapshot.value);
+//        print(snapshot.value);
       });
     }catch(e){
       print(e);
@@ -79,7 +82,7 @@ class _DateState extends State<Date> {
                               "\n Evening :  ${snapshot.value['evening'].toString() } ${snapshot.value['eveningPlayer'].toString()}"
                               "\n Night :  ${snapshot.value['night'].toString()} ${snapshot.value['nightPlayer'].toString()}"),
                           onTap: (){
-                            debugPrint(snapshot.value['key'].toString());
+                            debugPrint(snapshot.value['night'].toString());
                           },
                         ),
                       );
@@ -87,11 +90,11 @@ class _DateState extends State<Date> {
                 ),
               ),
               new RaisedButton(
-                  onPressed: (){
-                    updatetheBooking("morning");
-                  },
-                  child: new Text(bookModle.morning == true ? "Booked": "Book Morning"),
-                  color: (bookModle.morning == false)? Colors.red : Colors.blue,
+                onPressed: (){
+                  updatetheBooking("morning");
+                },
+                child: new Text(bookModle.morning == true ? "Booked": "Book Morning"),
+                color: (bookModle.morning == false)? Colors.red : Colors.blue,
 
               ),
               new RaisedButton(
@@ -119,39 +122,46 @@ class _DateState extends State<Date> {
   void _OnEntryAdded(Event event) {
     setState(() {
       bookedDatesList.add(BookModle.fromSnapshot(event.snapshot));
-      key = event.snapshot.key;
-      bookModle.morning = event.snapshot.value['morning'];
-      bookModle.evening = event.snapshot.value['evening'];
-      bookModle.night = event.snapshot.value['night'];
+      if(event.snapshot.value['dateTime'] == widget.date){
+        key = event.snapshot.key;
+        bookModle.morning = event.snapshot.value['morning'];
+        bookModle.evening = event.snapshot.value['evening'];
+        bookModle.night = event.snapshot.value['night'];
+      }
     });
   }
 
   void handleSubmition() {
-      bookModle.dateTime = "${widget.date}";
-      bookModle.morning = false;
-      bookModle.evening = false;
-      bookModle.night= false;
+    bookModle.dateTime = "${widget.date}";
+    bookModle.morning = false;
+    bookModle.evening = false;
+    bookModle.night= false;
 
-      databaseReference.push().set(bookModle.toJson());
+    databaseReference.push().set(bookModle.toJson());
   }
 
   void updatetheBooking(String time){
     if(time == "morning"){
       //update the morning
-      bookModle.morning = true;
+      setState(() {
+        bookModle.morning = true;
+      });
       databaseReference.child(key).child("morning").set(true);
       databaseReference.child(key).child("morningPlayer").set(widget.userEmail);
     }else if(time == "evening"){
       //update the evening;
-      bookModle.evening = true;
+      setState(() {
+        bookModle.evening = true;
+      });
       databaseReference.child(key).child("evening").set(true);
       databaseReference.child(key).child("eveningPlayer").set(widget.userEmail);
     }else{
       //update the night;
-      bookModle.night = true;
+      setState(() {
+        bookModle.night = true;
+      });
       databaseReference.child(key).child("night").set(true);
       databaseReference.child(key).child("nightPlayer").set(widget.userEmail);
     }
   }
 }
-
