@@ -46,13 +46,13 @@ class _NewsFeedState extends State<NewsFeed> {
             'images/cover_one.jpg',
             fit: BoxFit.cover,
             width:  MediaQuery.of(context).size.width,
-            height:  MediaQuery.of(context).size.height,
+            height:  MediaQuery.of(context).size.height - 100,
             ),
           ),
           new ListView(
             children: <Widget>[
               new Container(
-                height:  MediaQuery.of(context).size.height,
+                height:  MediaQuery.of(context).size.height-120,
                 child: new FirebaseAnimatedList(
                     query: databaseReference,
                     itemBuilder: (_, DataSnapshot snapshot,Animation<double> animation , int index){

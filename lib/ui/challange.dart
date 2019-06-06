@@ -159,7 +159,7 @@ class _showChallangesState extends State<showChallanges> {
               new ListView(
                 children: <Widget>[
                   new Container(
-                    height:  MediaQuery.of(context).size.height,
+                    height:  MediaQuery.of(context).size.height-120,
                     child: new FirebaseAnimatedList(
                         query: databaseReference,
                         itemBuilder: (_, DataSnapshot snapshot,Animation<double> animation , int index){
