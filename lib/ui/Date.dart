@@ -73,7 +73,10 @@ class _DateState extends State<Date> {
                     itemBuilder:(_, DataSnapshot snapshot,Animation<double> animation , int index){
 //                      debugPrint("the index is : "+ index.toString());
                       return new Card(
+                        elevation: 8.0,
+                        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                         child: new ListTile(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
 //                            leading: CircleAvatar(
 //                              backgroundColor: Colors.redAccent,
 //                            ),
@@ -91,7 +94,9 @@ class _DateState extends State<Date> {
               ),
               new RaisedButton(
                 onPressed: (){
-                  updatetheBooking("morning");
+                  if(bookModle.morning == false ){
+                    updatetheBooking("morning");
+                  }
                 },
                 child: new Text(bookModle.morning == true ? "Booked": "Book Morning"),
                 color: (bookModle.morning == false)? Colors.red : Colors.blue,
@@ -99,6 +104,7 @@ class _DateState extends State<Date> {
               ),
               new RaisedButton(
                 onPressed: (){
+                  if(bookModle.evening ==false)
                   updatetheBooking("evening");
                 },
                 child: new Text(bookModle.evening == true ? "Booked": "Book Evening"),
@@ -106,11 +112,13 @@ class _DateState extends State<Date> {
               ),
               new RaisedButton(
                 onPressed: (){
+                  if(bookModle.night == false)
                   updatetheBooking("night");
                 },
                 child: new Text(bookModle.night == true ? "Booked": "Book Night"),
                 color: (bookModle.night == false)? Colors.red : Colors.blue,
-
+                elevation: 4.0,
+                splashColor: Colors.red,
               ),
             ],
           ),

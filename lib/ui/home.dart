@@ -44,7 +44,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
           controller: _controller,
           tabs: <Tab>[
             new Tab(icon: new Icon(Icons.home),),
-            new Tab(icon: new Icon(Icons.email),)
+            new Tab(icon: new Icon(Icons.flag),)
           ],
         ),
       ),
