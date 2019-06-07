@@ -23,7 +23,6 @@ class _createChallangeState extends State<createChallange> {
   List<String> playerslist = [];
   String key;
 
-    var _time = new TextEditingController();
 
   @override
   void initState() {
@@ -64,18 +63,23 @@ class _createChallangeState extends State<createChallange> {
           new ListView(
             children: <Widget>[
               new ListTile(
-                title: new TextField(
-                  controller: _time,
-                  decoration: new InputDecoration(
-                      labelText: "Enter the username"
-                  ),
-                ),
+                  title: new RaisedButton(
+                    onPressed: ()=>makeChallange("morning"),
+                    child: new Text("Morning"),
+                    color: Colors.greenAccent.shade100,
+                  )
               ),
-
               new ListTile(
                   title: new RaisedButton(
-                    onPressed: makeChallange,
-                    child: new Text("Make challange"),
+                    onPressed: ()=>makeChallange("evening"),
+                    child: new Text("Evening"),
+                    color: Colors.greenAccent.shade100,
+                  )
+              ),
+              new ListTile(
+                  title: new RaisedButton(
+                    onPressed: ()=>makeChallange("night"),
+                    child: new Text("Night"),
                     color: Colors.greenAccent.shade100,
                   )
               ),
@@ -88,10 +92,9 @@ class _createChallangeState extends State<createChallange> {
 
 
 
-  void makeChallange() {
+  void makeChallange(String time) {
     challangeModle.dateTime = "${widget.date}";
-    challangeModle.time = "${_time.text}";
-//    challangeModle.count = int.parse(_countofyourteam.text);
+    challangeModle.time = time;
     challangeModle.count = 1;
     playerslist.add("${widget.userEmail}");
     challangeModle.players = playerslist;
