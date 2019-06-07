@@ -100,8 +100,9 @@ class _NewsFeedState extends State<NewsFeed> {
         onPressed: () {
           return _selectDate(context);
         },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.pink,
+        child: Icon(Icons.add,
+        color: Colors.grey,),
+        backgroundColor: Colors.white,
       ),
     );
   }
@@ -121,7 +122,6 @@ class _NewsFeedState extends State<NewsFeed> {
     if (picked != null)
       setState(() {
         selectedDate = picked;
-        Duration defference = selectedDate.difference(DateTime.now());
         if(selectedDate.isAfter(DateTime.now())){
           var router = new MaterialPageRoute(
               builder: (BuildContext context){
