@@ -137,7 +137,6 @@ class _showChallangesState extends State<showChallanges> {
   void initState() {
     super.initState();
     databaseReference = database.reference().child("Challanges");
-    databaseReference.onChildAdded.listen(_OnEntryAdded);
 
   }
 
@@ -219,11 +218,7 @@ class _showChallangesState extends State<showChallanges> {
   }
 
 
-  void _OnEntryAdded(Event event) {
-    setState(() {
-      challangsList.add(ChallangeModle.fromSnapshot(event.snapshot));
-    });
-  }
+
   void addToTheMatch(String key,int count,List<String> list){
     databaseReference.child(key).child('players').set(list);
     databaseReference.child(key).child('count').set(count+1);
