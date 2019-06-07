@@ -144,6 +144,7 @@ class _showChallangesState extends State<showChallanges> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
 //        appBar: AppBar(
 //          backgroundColor: Colors.greenAccent,
 //          title: new Text("Challengs feed"),
@@ -151,14 +152,6 @@ class _showChallangesState extends State<showChallanges> {
 //        ),
         body: new Stack(
             children: <Widget>[
-              new Center(
-                child: new Image.asset(
-                  'images/cover_one.jpg',
-                  fit: BoxFit.cover,
-                  width:  MediaQuery.of(context).size.width,
-                  height:  MediaQuery.of(context).size.height,
-                ),
-              ),
               new ListView(
                 children: <Widget>[
                   new Container(
@@ -167,29 +160,45 @@ class _showChallangesState extends State<showChallanges> {
                         query: databaseReference,
                         itemBuilder: (_, DataSnapshot snapshot,Animation<double> animation , int index){
                           return new Card(
-                            child: new ListTile(
-//                            leading: CircleAvatar(
-//                              backgroundColor: Colors.redAccent,
-//                            ),
-                              title:  Text(snapshot.value['dateTime'].toString()),
-                              subtitle:  Text("Time :  ${snapshot.value['time'].toString()}  "
-                                  "\n Count :  ${snapshot.value['count'].toString() } "
-                                  ),
-                              onTap: (){
-                                List<String> list = [];
-                                bool isAlreadypart = false;
-                                for(int i=0;i<snapshot.value['count'];i++){
-                                  list.add(snapshot.value['players'][i].toString());
-                                  if(widget.userEmail == snapshot.value['players'][i].toString()){
-                                    isAlreadypart = true;
+                            elevation: 8.0,
+                            margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                            child: new Container(
+                              decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+                              child: new ListTile(
+                                contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                                leading: Container(
+                                  padding: EdgeInsets.only(right: 12.0),
+                                  decoration: new BoxDecoration(
+                                      border: new Border(
+                                          right: new BorderSide(width: 1.0, color: Colors.white24))),
+                                  child: Icon(Icons.autorenew, color: Colors.white),
+                                ),
+                                title:  Text(
+                                    snapshot.value['dateTime'].toString(),
+                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                ),
+                                subtitle:  Text(
+                                    "Time :  ${snapshot.value['time'].toString()}  "
+                                    "\n Count :  ${snapshot.value['count'].toString() } ",
+                                    style: TextStyle(color: Colors.white),
+                                ),
+                                trailing: new Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                                onTap: (){
+                                  List<String> list = [];
+                                  bool isAlreadypart = false;
+                                  for(int i=0;i<snapshot.value['count'];i++){
+                                    list.add(snapshot.value['players'][i].toString());
+                                    if(widget.userEmail == snapshot.value['players'][i].toString()){
+                                      isAlreadypart = true;
+                                    }
                                   }
-                                }
-                                if(!isAlreadypart){
-                                  list.add(widget.userEmail);
-                                  addToTheMatch(snapshot.key,snapshot.value['count'],list);
-                                }
-                              },
-                            ),
+                                  if(!isAlreadypart){
+                                    list.add(widget.userEmail);
+                                    addToTheMatch(snapshot.key,snapshot.value['count'],list);
+                                  }
+                                },
+                              ),
+                            )
                           );
                         }
                     ),
