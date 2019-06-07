@@ -101,7 +101,7 @@ class _NewsFeedState extends State<NewsFeed> {
           return _selectDate(context);
         },
         child: Icon(Icons.add,
-        color: Colors.grey,),
+        color: Colors.pinkAccent,),
         backgroundColor: Colors.white,
       ),
     );

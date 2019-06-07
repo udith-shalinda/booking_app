@@ -211,8 +211,9 @@ class _showChallangesState extends State<showChallanges> {
         onPressed: () {
           _makeAChallange(context);
         },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.pink,
+        child: Icon(Icons.add,
+        color: Colors.pinkAccent,),
+        backgroundColor: Colors.white,
       ),
     );
   }
