@@ -158,7 +158,7 @@ class _DateState extends State<Date> {
       databaseReference.child(key).child("morningPlayer").set(widget.userEmail);
     }else if(time == "evening"){
       //update the evening;
-      setState(() {
+      setState((){
         bookModle.evening = true;
       });
       databaseReference.child(key).child("evening").set(true);

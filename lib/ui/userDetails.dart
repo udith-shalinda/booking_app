@@ -95,7 +95,7 @@ class _UserDetailsState extends State<UserDetails> {
 
     var router = new MaterialPageRoute(
         builder: (BuildContext context){
-          return new PickDate();
+          return new PickDate(userEmail: widget.email,);
         });
     Navigator.of(context).push(router);
   }
