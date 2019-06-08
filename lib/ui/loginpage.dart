@@ -117,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
       print(e.toString());
     }finally{
       if(user != null){
+        incorrectPassword = false;
         var router = new MaterialPageRoute(
             builder: (BuildContext context){
               return new PickDate(userEmail:_username.text);

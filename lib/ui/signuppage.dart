@@ -109,6 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
       print(e.toString());
     }finally{
       if(user != null){
+        incorrectPassword = false;
         print("user created");
         var router = new MaterialPageRoute(
             builder: (BuildContext context){
