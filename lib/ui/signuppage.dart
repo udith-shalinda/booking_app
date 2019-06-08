@@ -21,6 +21,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   var _username = new TextEditingController();
   var _password = new TextEditingController();
+  bool incorrectPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +45,25 @@ class _SignUpPageState extends State<SignUpPage> {
                 title: new TextField(
                   controller: _username,
                   decoration: new InputDecoration(
-                      labelText: "Enter the username"
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                    ),
                   ),
                 ),
+                contentPadding: EdgeInsets.only(top: 30.0),
               ),
               new ListTile(
                 title: new TextField(
                   controller: _password,
                   decoration: new InputDecoration(
-                      labelText: "Enter the password"
+                    labelText: "Enter the password",
+                    errorText: incorrectPassword ? "Email or password is incorrect" : null,
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                    ),
                   ),
                 ),
+                contentPadding: EdgeInsets.only(top: 30.0),
               ),
               new ListTile(
                   title: new RaisedButton(
@@ -108,6 +117,9 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.of(context).push(router);
       }else{
         print("Authentication failed");
+        setState(() {
+          incorrectPassword = true;
+        });
       }
     }
     return user;
