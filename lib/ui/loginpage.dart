@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     databaseReference = database.reference().child("user");
   }
-
+  bool incorrectPassword  = false;
   var _username = new TextEditingController();
   var _password = new TextEditingController();
 
@@ -61,24 +61,35 @@ class _LoginPageState extends State<LoginPage> {
                 title: new TextField(
                   controller: _username,
                   decoration: new InputDecoration(
-                    labelText: "Enter the username"
+                    labelText: "Enter the username",
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                    ),
                   ),
                 ),
+                contentPadding: EdgeInsets.only(top: 30.0),
               ),
               new ListTile(
                 title: new TextField(
                   controller: _password,
                   decoration: new InputDecoration(
-                      labelText: "Enter the password"
+                      labelText: "Enter the password",
+                      fillColor: Colors.white,
+                      border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                      ),
+
                   ),
                 ),
+                contentPadding: EdgeInsets.only(top: 30.0),
               ),
               new ListTile(
                 title: new RaisedButton(
                     onPressed: loginButton,
                     child: new Text("Login"),
                     color: Colors.greenAccent.shade100,
-                )
+                ),
+                contentPadding: EdgeInsets.only(top: 10.0),
               ),
             ],
           )
