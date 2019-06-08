@@ -105,7 +105,7 @@ class _DateState extends State<Date> {
               new RaisedButton(
                 onPressed: (){
                   if(bookModle.evening ==false)
-                  updatetheBooking("evening");
+                    updatetheBooking("evening");
                 },
                 child: new Text(bookModle.evening == true ? "Booked": "Book Evening"),
                 color: (bookModle.evening == false)? Colors.red : Colors.blue,
@@ -113,7 +113,7 @@ class _DateState extends State<Date> {
               new RaisedButton(
                 onPressed: (){
                   if(bookModle.night == false)
-                  updatetheBooking("night");
+                    updatetheBooking("night");
                 },
                 child: new Text(bookModle.night == true ? "Booked": "Book Night"),
                 color: (bookModle.night == false)? Colors.red : Colors.blue,
@@ -128,8 +128,8 @@ class _DateState extends State<Date> {
   }
 
   void _OnEntryAdded(Event event) {
+    bookedDatesList.add(BookModle.fromSnapshot(event.snapshot));
     setState(() {
-      bookedDatesList.add(BookModle.fromSnapshot(event.snapshot));
       if(event.snapshot.value['dateTime'] == widget.date){
         key = event.snapshot.key;
         bookModle.morning = event.snapshot.value['morning'];
