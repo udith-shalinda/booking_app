@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                       border: new OutlineInputBorder(
                       borderRadius: new BorderRadius.circular(25.0),
                       ),
-
+                    errorText: incorrectPassword ? "Email or password is incorrect" : null,
                   ),
                 ),
                 contentPadding: EdgeInsets.only(top: 30.0),
@@ -124,6 +124,9 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.of(context).push(router);
       }else{
         print("Authentication failed");
+        setState(() {
+          incorrectPassword = true;
+        });
       }
     }
   }

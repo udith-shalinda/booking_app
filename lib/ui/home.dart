@@ -35,7 +35,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+        backgroundColor: Color.fromRGBO(52, 66, 86, 1.0),
         title: new Text("Home"),
         centerTitle: true,
         bottom: TabBar(
