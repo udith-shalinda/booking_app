@@ -70,8 +70,9 @@ class _NewsFeedState extends State<NewsFeed> {
                                 border: new Border(
                                     right: new BorderSide(width: 1.0, color: Colors.white24))),
                             child: CircleAvatar(
+                              radius: 30.0,
                               backgroundColor: Colors.white,
-                              child: new Text(snapshot.value['dateTime'].substring(8,10)),
+                              child: new Text(snapshot.value['dateTime'].substring(5,10)),
                             ),
                           ),
                             title:  Text(
