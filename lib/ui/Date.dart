@@ -98,7 +98,7 @@ class _DateState extends State<Date> {
                     updatetheBooking("morning");
                   }
                 },
-                child: new Text(bookModle.morning == true ? "Booked": "Book Morning"),
+                child: new Text(bookModle.morning == true ? "Morning : Already Booked": "Mornig:Book Morning"),
                 color: (bookModle.morning == false)? Colors.red : Colors.blue,
 
               ),
@@ -107,7 +107,7 @@ class _DateState extends State<Date> {
                   if(bookModle.evening ==false)
                     updatetheBooking("evening");
                 },
-                child: new Text(bookModle.evening == true ? "Booked": "Book Evening"),
+                child: new Text(bookModle.evening == true ? "Evening : Already Booked": "Evening : Book Evening"),
                 color: (bookModle.evening == false)? Colors.red : Colors.blue,
               ),
               new RaisedButton(
@@ -115,7 +115,7 @@ class _DateState extends State<Date> {
                   if(bookModle.night == false)
                     updatetheBooking("night");
                 },
-                child: new Text(bookModle.night == true ? "Booked": "Book Night"),
+                child: new Text(bookModle.night == true ? "Night : Already Booked": "Night : Book Night"),
                 color: (bookModle.night == false)? Colors.red : Colors.blue,
                 elevation: 4.0,
                 splashColor: Colors.red,
