@@ -170,7 +170,11 @@ class _showChallangesState extends State<showChallanges> {
                                   decoration: new BoxDecoration(
                                       border: new Border(
                                           right: new BorderSide(width: 1.0, color: Colors.white24))),
-                                  child: Icon(Icons.autorenew, color: Colors.white),
+                                  child: CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundColor: Colors.white,
+                                    child: new Text(snapshot.value['dateTime'].substring(5,10)),
+                                  ),
                                 ),
                                 title:  Text(
                                     snapshot.value['dateTime'].toString(),
