@@ -55,19 +55,29 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
               new challenge.showChallanges(userEmail: widget.userEmail,)
           ],),
       drawer: new Drawer(
-        child: new ListView(
-          children: <Widget>[
-            new Text("hello therer"),
-            ListTile(
-              title: Text('<--'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
+        child: new Container(
+          color: Color.fromRGBO(64, 75, 96, .9),
+          child: new ListView(
+            children: <Widget>[
+              new DrawerHeader(
+                child: new CircleAvatar(
+                  radius: 45.0,
+                  child: new Icon(Icons.person_outline,size: 55,color: Colors.white,),
+                  backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+                ),
+                decoration: BoxDecoration(
+                  color:Color.fromRGBO(52, 66, 86, 1.0),
+                ),
+              ),
+              new Text("hello therer"),
+              ListTile(
+                title: Text('<--'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
