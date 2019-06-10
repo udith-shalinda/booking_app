@@ -53,7 +53,23 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
           children: <Widget>[
               new feed.NewsFeed(userEmail: widget.userEmail,),
               new challenge.showChallanges(userEmail: widget.userEmail,)
-          ],)
+          ],),
+      drawer: new Drawer(
+        child: new ListView(
+          children: <Widget>[
+            new Text("hello therer"),
+            ListTile(
+              title: Text('<--'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 

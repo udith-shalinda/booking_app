@@ -45,6 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 title: new TextField(
                   controller: _username,
                   decoration: new InputDecoration(
+                    labelText: "Enter the username",
                     border: new OutlineInputBorder(
                       borderRadius: new BorderRadius.circular(25.0),
                     ),

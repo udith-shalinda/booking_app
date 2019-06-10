@@ -102,7 +102,7 @@ class _UserDetailsState extends State<UserDetails> {
   Future<String> _pickSaveImage() async {
     File imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
     StorageReference ref =
-    FirebaseStorage.instance.ref().child('profileImages').child("sfwfwf.fhfh");
+    FirebaseStorage.instance.ref().child('profileImages').child("sfwfwfsfsfs");
     StorageUploadTask uploadTask = ref.putFile(imageFile);
     return await (await uploadTask.onComplete).ref.getDownloadURL();
   }
