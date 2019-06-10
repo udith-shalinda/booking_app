@@ -69,7 +69,10 @@ class _NewsFeedState extends State<NewsFeed> {
                                 decoration: new BoxDecoration(
                                 border: new Border(
                                     right: new BorderSide(width: 1.0, color: Colors.white24))),
-                            child: Icon(Icons.autorenew, color: Colors.white),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              child: new Text(snapshot.value['dateTime'].substring(8,10)),
+                            ),
                           ),
                             title:  Text(
                                 snapshot.value['dateTime'].toString(),
