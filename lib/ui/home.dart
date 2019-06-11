@@ -1,3 +1,5 @@
+import 'package:booking_app/modle/user.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 
@@ -18,11 +20,20 @@ class PickDate extends StatefulWidget {
 class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin {
    DateTime selectedDate = DateTime.now();
    TabController _controller;
+   final FirebaseDatabase database = FirebaseDatabase.instance;
+   DatabaseReference databaseReference;
+    User user = new User('', '', '');
 
    @override
    void initState() {
      super.initState();
       _controller = new TabController(length: 2, vsync: this);
+//     database.reference().child("UserDetails").orderByChild("email").equalTo("${widget.userEmail}")
+//         .once().then((DataSnapshot snapshot){
+//                print( snapshot.value);
+//                String name = User.fromSnapshot(snapshot).name;
+//                print(name);
+//        });
    }
 
 
@@ -69,12 +80,22 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                   color:Color.fromRGBO(52, 66, 86, 1.0),
                 ),
               ),
-              new Text("hello therer"),
               ListTile(
                 title: Text('<--'),
                 onTap: () {
                   Navigator.pop(context);
                 },
+              ),
+              new RaisedButton(
+                color: Colors.blueGrey,
+                onPressed: (){},
+                child: new Text(
+                  "Sign out",
+                  style: new TextStyle(
+                    color: Colors.white,
+                    fontSize: 19
+                  ),
+                ),
               ),
             ],
           ),
