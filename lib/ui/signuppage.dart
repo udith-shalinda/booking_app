@@ -22,6 +22,9 @@ class _SignUpPageState extends State<SignUpPage> {
   var _username = new TextEditingController();
   var _password = new TextEditingController();
   bool incorrectPassword = false;
+  var _formKey = GlobalKey<FormState>();
+  String _email;
+  String _formpassword;
 
   @override
   Widget build(BuildContext context) {
@@ -39,41 +42,65 @@ class _SignUpPageState extends State<SignUpPage> {
               width: 500,
               height: 1000,
             ),
-          new ListView(
-            children: <Widget>[
-              new ListTile(
-                title: new TextField(
-                  controller: _username,
-                  decoration: new InputDecoration(
-                    labelText: "Enter the username",
-                    border: new OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(25.0),
+          new Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: TextFormField(
+                    controller: _username,
+                    validator: (value){
+                      String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                      RegExp regExp = new RegExp(p);
+                      if(value.length == 0 || !regExp.hasMatch(value)){
+                        return "Invalid email";
+                      }
+                    },
+                    onSaved: (value){
+                      _email = value;
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Enter the email",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
                     ),
                   ),
                 ),
-                contentPadding: EdgeInsets.only(top: 30.0),
-              ),
-              new ListTile(
-                title: new TextField(
-                  controller: _password,
-                  decoration: new InputDecoration(
-                    labelText: "Enter the password",
-                    errorText: incorrectPassword ? "Email or password is incorrect" : null,
-                    border: new OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(25.0),
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: TextFormField(
+                    controller: _password,
+                    validator: (value){
+
+                      if(value.length == 0){
+                        return "Password is empty";
+                      }
+                    },
+                    onSaved: (value){
+                      _formpassword = value;
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Enter the password",
+                      errorText: incorrectPassword ? "User email or password is incorrect":null,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
                     ),
                   ),
                 ),
-                contentPadding: EdgeInsets.only(top: 30.0),
-              ),
-              new ListTile(
-                  title: new RaisedButton(
-                    onPressed:  signUpWithEmail,
-                  child: new Text("Sign Up"),
-                    color: Colors.greenAccent.shade100,
-                  )
-              ),
-            ],
+                RaisedButton(
+                  onPressed: signUpWithEmail ,
+                  color: Colors.greenAccent,
+                  child: Text(
+                    'Sign up',
+                    style: TextStyle(fontSize: 16.9),
+                  ),
+                  textColor: Colors.white70,
+                )
+              ],
+            ),
           )
         ],
       ),
