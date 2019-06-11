@@ -2,10 +2,13 @@ import 'package:booking_app/modle/user.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
 import './Date.dart';
 import './feed.dart' as feed;
 import './challange.dart' as challenge;
+import './loginpage.dart';
 
 //picking a date to book
 class PickDate extends StatefulWidget {
@@ -88,7 +91,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
               ),
               new RaisedButton(
                 color: Colors.blueGrey,
-                onPressed: (){},
+                onPressed: signout,
                 child: new Text(
                   "Sign out",
                   style: new TextStyle(
@@ -104,5 +107,13 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
     );
   }
 
+  Future signout() async {
+     await FirebaseAuth.instance.signOut();
+     var router = new MaterialPageRoute(
+         builder: (BuildContext context){
+           return new LoginPage();
+         });
+     Navigator.of(context).push(router);
+   }
 
 }
