@@ -83,11 +83,8 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                   color:Color.fromRGBO(52, 66, 86, 1.0),
                 ),
               ),
-              ListTile(
-                title: Text('<--'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
+              new RaisedButton(onPressed: (){},
+                child: Text("Test Button"),
               ),
               new RaisedButton(
                 color: Colors.blueGrey,
