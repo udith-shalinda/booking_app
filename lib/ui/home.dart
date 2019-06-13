@@ -35,12 +35,6 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
      super.initState();
      getSharedPreference();
       _controller = new TabController(length: 2, vsync: this);
-//     database.reference().child("UserDetails").orderByChild("email").equalTo("${widget.userEmail}")
-//         .once().then((DataSnapshot snapshot){
-//                print( snapshot.value);
-//                String name = User.fromSnapshot(snapshot).name;
-//                print(name);
-//        });
      getUserDetails();
    }
 
@@ -96,28 +90,44 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 //                      debugPrint("the index is : "+ index.toString());
                       return new Card(
                         elevation: 8.0,
-                        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-                        child: new ListTile(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-//                            leading: CircleAvatar(
-//                              backgroundColor: Colors.redAccent,
-//                            ),
-                          title:  Text(snapshot.value['name'].toString()),
-                          subtitle:  Text(snapshot.value['mobile']),
-                          onTap: (){
-                            debugPrint(snapshot.value['email'].toString());
-                          },
-                        ),
+                        margin: new EdgeInsets.symmetric(horizontal: 0.0, vertical: 6.0),
+                        child: Container(
+                            decoration: BoxDecoration(color: Color.fromRGBO(56, 70, 96, .9)),
+                          child: new ListTile(
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                            title:  Text(
+                              snapshot.value['name'].toString() ,
+                              style: new TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            subtitle:  Text(snapshot.value['mobile'],
+                              style: new TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onTap:updateProfile,
+                          ),
+                        )
                       );
                     }
                 ),
               ),
               new RaisedButton(
                   onPressed: updateProfile,
-                  child: Text("Update profile"),
+                  color: Color.fromRGBO(56, 70, 96, .9),
+                  child: Text(
+                      "Update profile",
+                      style: TextStyle(
+                        color: Colors.white,
+
+                      ),
+                  ),
               ),
               new RaisedButton(
-                color: Colors.blueGrey,
+                color: Color.fromRGBO(56, 70, 96, .9),
                 onPressed: signout,
                 child: new Text(
                   "Sign out",
