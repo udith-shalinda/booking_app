@@ -12,7 +12,7 @@ import 'loginpage.dart';
 class createChallange extends StatefulWidget {
   final String date;
   String userEmail;
-  createChallange({Key key,this.date,this.userEmail}):super(key:key);
+  createChallange({Key key,this.date}):super(key:key);
 
   @override
   _createChallangeState createState() => _createChallangeState();
@@ -33,6 +33,7 @@ class _createChallangeState extends State<createChallange> {
 
     databaseReference = database.reference().child("Challanges");
     challangeModle = new ChallangeModle('', '', 0,playerslist);
+    getSharedPreference();
 //    try{
 //      database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}").once().then((DataSnapshot snapshot){
 //        if(snapshot.value == null){
@@ -104,7 +105,18 @@ class _createChallangeState extends State<createChallange> {
 
     databaseReference.push().set(challangeModle.toJson());
   }
-
+  void getSharedPreference() async{
+    final prefs = await SharedPreferences.getInstance();   //save username
+    if(prefs.getString('userEmail') == null){
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+            (Route<dynamic> route) => false,
+      );
+    }else{
+      widget.userEmail = prefs.getString('userEmail');
+    }
+  }
 }
 
 
@@ -243,7 +255,7 @@ class _showChallangesState extends State<showChallanges> {
         if(selectedDate.isAfter(DateTime.now())){
           var router = new MaterialPageRoute(
               builder: (BuildContext context){
-                return new createChallange(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]),userEmail:widget.userEmail);     //this should be changed;
+                return new createChallange(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]));     //this should be changed;
               });
           Navigator.of(context).push(router);
         }
