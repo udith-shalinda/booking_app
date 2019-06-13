@@ -108,6 +108,9 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 
   Future signout() async {
      await FirebaseAuth.instance.signOut();
+     final prefs = await SharedPreferences.getInstance();
+     prefs.clear();
+
      var router = new MaterialPageRoute(
          builder: (BuildContext context){
            return new LoginPage();
