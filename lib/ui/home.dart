@@ -70,8 +70,8 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
       body: new TabBarView(
           controller: _controller,
           children: <Widget>[
-              new feed.NewsFeed(userEmail: widget.userEmail,),
-              new challenge.showChallanges(userEmail: widget.userEmail,)
+              new feed.NewsFeed(),
+              new challenge.showChallanges()
           ],),
       drawer: new Drawer(
         child: new Container(
@@ -158,12 +158,12 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
    }
 
    void getUserDetails() async{
-//          database.reference().child("UserDetails").orderByChild("name").equalTo("testthree@test.com")
-//         .once().then((DataSnapshot snapshot){
-//                print( snapshot.value);
-////                String name = User.fromSnapshot(snapshot).name;
-////                print(name);
-//        });
+          database.reference().child("UserDetails").orderByChild("name").equalTo("testthree@test.cossssm")
+         .once().then((DataSnapshot snapshot){
+                print( snapshot);
+//                String name = User.fromSnapshot(snapshot).name;
+//                print(name);
+        });
 
    }
    void updateProfile(){

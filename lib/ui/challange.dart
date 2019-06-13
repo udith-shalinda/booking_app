@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:date_format/date_format.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 import '../modle/challangeModle.dart';
+import 'loginpage.dart';
 
 
 class createChallange extends StatefulWidget {
   final String date;
-  final String userEmail;
+  String userEmail;
   createChallange({Key key,this.date,this.userEmail}):super(key:key);
 
   @override
@@ -118,8 +121,7 @@ class _createChallangeState extends State<createChallange> {
 
 class showChallanges extends StatefulWidget {
 
-  final String userEmail;
-  showChallanges({Key key,this.userEmail}):super(key:key);
+  String userEmail;
 
   @override
   _showChallangesState createState() => _showChallangesState();
@@ -246,5 +248,17 @@ class _showChallangesState extends State<showChallanges> {
           Navigator.of(context).push(router);
         }
       });
+  }
+  void getSharedPreference() async{
+    final prefs = await SharedPreferences.getInstance();   //save username
+    if(prefs.getString('userEmail') == null){
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+            (Route<dynamic> route) => false,
+      );
+    }else{
+      widget.userEmail = prefs.getString('userEmail');
+    }
   }
 }

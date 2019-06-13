@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:date_format/date_format.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 import '../modle/bookModle.dart';
 import './Date.dart';
+import 'loginpage.dart';
 
 class NewsFeed extends StatefulWidget {
-  final String userEmail;
-  NewsFeed({Key key,this.userEmail}):super(key :key);
+  String userEmail;
 
   @override
   _NewsFeedState createState() => _NewsFeedState();
@@ -28,7 +30,7 @@ class _NewsFeedState extends State<NewsFeed> {
     super.initState();
     databaseReference = database.reference().child("bookedTimes");
     databaseReference.onChildAdded.listen(_OnEntryAdded);
-
+    getSharedPreference();
   }
 
   @override
@@ -136,12 +138,24 @@ class _NewsFeedState extends State<NewsFeed> {
       });
   }
 
-  void bookADate(String date){
+  void bookADate(String date) async{
     var router = new MaterialPageRoute(
         builder: (BuildContext context){
           return new Date(date: date ,userEmail:widget.userEmail);
         });
     Navigator.of(context).push(router);
+  }
+  void getSharedPreference() async{
+    final prefs = await SharedPreferences.getInstance();   //save username
+    if(prefs.getString('userEmail') == null){
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+            (Route<dynamic> route) => false,
+      );
+    }else{
+      widget.userEmail = prefs.getString('userEmail');
+    }
   }
 
 }
