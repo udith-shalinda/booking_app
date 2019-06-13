@@ -113,6 +113,10 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                 ),
               ),
               new RaisedButton(
+                  onPressed: (){},
+                  child: Text("Update profile"),
+              ),
+              new RaisedButton(
                 color: Colors.blueGrey,
                 onPressed: signout,
                 child: new Text(
@@ -160,6 +164,9 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 ////                String name = User.fromSnapshot(snapshot).name;
 ////                print(name);
 //        });
+
+   }
+   void updateProfile(){
 
    }
 }
