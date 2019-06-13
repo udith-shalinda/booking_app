@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './Date.dart';
 import './feed.dart' as feed;
@@ -28,7 +29,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
     User user = new User('', '', '');
 
    @override
-   void initState() {
+   void initState(){
      super.initState();
       _controller = new TabController(length: 2, vsync: this);
 //     database.reference().child("UserDetails").orderByChild("email").equalTo("${widget.userEmail}")
@@ -37,6 +38,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 //                String name = User.fromSnapshot(snapshot).name;
 //                print(name);
 //        });
+   test();
    }
 
 
@@ -113,4 +115,8 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
      Navigator.of(context).push(router);
    }
 
+   void test() async{
+     final prefs = await SharedPreferences.getInstance();
+     print("user email from sharedPreferense " + prefs.getString("userEmail"));
+   }
 }

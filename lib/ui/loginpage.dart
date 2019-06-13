@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './signuppage.dart';
 import './home.dart';
@@ -16,6 +17,8 @@ class _LoginPageState extends State<LoginPage> {
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+
 
   @override
   void initState() {
@@ -134,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void signInWithCredentials(String email, String password) async {
     FirebaseUser user;
+    final prefs = await SharedPreferences.getInstance();   //save username
     try{
       user = await _firebaseAuth.signInWithEmailAndPassword(
           email: _username.text,
@@ -144,6 +148,7 @@ class _LoginPageState extends State<LoginPage> {
     }finally{
       if(user != null){
         incorrectPassword = false;
+        prefs.setString("userEmail", _email);
         var router = new MaterialPageRoute(
             builder: (BuildContext context){
               return new PickDate(userEmail:_username.text);
