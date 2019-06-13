@@ -3,7 +3,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -25,6 +24,8 @@ class _UserDetailsState extends State<UserDetails> {
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference ;
   User user;
+  String key;
+  List<User> userList = List();
   File _image;
 
   var _name = new TextEditingController();
@@ -33,8 +34,9 @@ class _UserDetailsState extends State<UserDetails> {
 
   @override
   void initState() {
+    getSharedPreference();
     databaseReference = database.reference().child("UserDetails");
-    user = new User('','','');
+    databaseReference.onChildAdded.listen(_getUserDetails);
   }
 
   @override
@@ -88,12 +90,33 @@ class _UserDetailsState extends State<UserDetails> {
       ),
     );
   }
-  void uploadUserDetails(){
-    user.name = _name.text;
-    user.mobile = _mobile.text;
-    user.email = "${widget.email}";
 
-    databaseReference.push().set(user.toJson());
+  void getSharedPreference() async{
+    final prefs = await SharedPreferences.getInstance();   //save username
+    if(prefs.getString('userEmail') == null){
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+            (Route<dynamic> route) => false,
+      );
+    }else{
+      widget.email = prefs.getString('userEmail');
+    }
+  }
+
+
+  _getUserDetails(Event event){
+    userList.add(User.fromSnapshot(event.snapshot));
+    if(event.snapshot.value['email'] == widget.email){
+      _name.text = event.snapshot.value['name'];
+      _mobile.text = event.snapshot.value['mobile'];
+      key = event.snapshot.key;
+    }
+  }
+  void uploadUserDetails(){
+
+    databaseReference.child(key).child('name').set(_name.text);
+    databaseReference.child(key).child('mobile').set(_mobile.text);
 
     var router = new MaterialPageRoute(
         builder: (BuildContext context){
@@ -109,18 +132,6 @@ class _UserDetailsState extends State<UserDetails> {
     FirebaseStorage.instance.ref().child('profileImages').child("sfwfwfsfsfs");
     StorageUploadTask uploadTask = ref.putFile(imageFile);
     return await (await uploadTask.onComplete).ref.getDownloadURL();
-  }
-  void getSharedPreference() async{
-    final prefs = await SharedPreferences.getInstance();   //save username
-    if(prefs.getString('userEmail') == null){
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
-            (Route<dynamic> route) => false,
-      );
-    }else{
-      widget.email = prefs.getString('userEmail');
-    }
   }
 
 }

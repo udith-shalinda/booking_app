@@ -3,14 +3,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 import 'dart:async';
 
 import './userDetails.dart';
+import '../modle/user.dart';
 
-final FirebaseDatabase database = FirebaseDatabase.instance;
-final GoogleSignIn googleSignIn = new GoogleSignIn();
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -19,6 +16,10 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
 
+  final FirebaseDatabase database = FirebaseDatabase.instance;
+  DatabaseReference databaseReference;
+  User user;
+  final GoogleSignIn googleSignIn = new GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   var _username = new TextEditingController();
@@ -150,6 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
         incorrectPassword = false;
         print("user created");
         prefs.setString("userEmail", _email);
+        createUserDetails();
 //        var router = new MaterialPageRoute(
 //            builder: (BuildContext context){
 //              return new UserDetails(email:_username.text);
@@ -169,6 +171,11 @@ class _SignUpPageState extends State<SignUpPage> {
       }
     }
     return user;
+  }
+  void createUserDetails(){
+    databaseReference = database.reference().child("UserDetails");
+    user = new User('','',_email);
+    databaseReference.push().set(user.toJson());
   }
 }
 

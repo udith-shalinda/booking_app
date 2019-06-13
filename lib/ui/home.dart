@@ -1,4 +1,5 @@
 import 'package:booking_app/modle/user.dart';
+import 'package:booking_app/ui/userDetails.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
@@ -40,7 +41,6 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 //                String name = User.fromSnapshot(snapshot).name;
 //                print(name);
 //        });
-      test();
      getUserDetails();
    }
 
@@ -113,7 +113,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                 ),
               ),
               new RaisedButton(
-                  onPressed: (){},
+                  onPressed: updateProfile,
                   child: Text("Update profile"),
               ),
               new RaisedButton(
@@ -136,8 +136,8 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 
   Future signout() async {
      await FirebaseAuth.instance.signOut();
-//     final prefs = await SharedPreferences.getInstance();
-//     prefs.clear();
+     final prefs = await SharedPreferences.getInstance();
+     prefs.clear();
 
 //     var router = new MaterialPageRoute(
 //         builder: (BuildContext context){
@@ -152,11 +152,6 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 
   }
 
-   void test() async{
-     final prefs = await SharedPreferences.getInstance();
-     print("user email from sharedPreferense " + prefs.getString("userEmail"));
-   }
-
    void getUserDetails() async{
           database.reference().child("UserDetails").orderByChild("name").equalTo("testthree@test.cossssm")
          .once().then((DataSnapshot snapshot){
@@ -167,7 +162,11 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 
    }
    void updateProfile(){
-
+             var router = new MaterialPageRoute(
+            builder: (BuildContext context){
+              return new UserDetails();
+            });
+        Navigator.of(context).push(router);
    }
 
    void getSharedPreference() async{
