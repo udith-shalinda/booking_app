@@ -99,6 +99,8 @@ class _UserDetailsState extends State<UserDetails> {
         });
     Navigator.of(context).push(router);
   }
+
+
   Future<String> _pickSaveImage() async {
     File imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
     StorageReference ref =

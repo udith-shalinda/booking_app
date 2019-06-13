@@ -5,6 +5,8 @@ import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+
 
 import './Date.dart';
 import './feed.dart' as feed;
@@ -38,7 +40,8 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 //                String name = User.fromSnapshot(snapshot).name;
 //                print(name);
 //        });
-   test();
+      test();
+     getUserDetails();
    }
 
 
@@ -85,8 +88,29 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                   color:Color.fromRGBO(52, 66, 86, 1.0),
                 ),
               ),
-              new RaisedButton(onPressed: (){},
-                child: Text("Test Button"),
+              new Container(
+                height: 400,
+                child: new FirebaseAnimatedList(
+                    query: database.reference().child("UserDetails").orderByChild("email").equalTo("testthree@test.com"),
+                    itemBuilder:(_, DataSnapshot snapshot,Animation<double> animation , int index){
+//                      debugPrint("the index is : "+ index.toString());
+                      return new Card(
+                        elevation: 8.0,
+                        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                        child: new ListTile(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+//                            leading: CircleAvatar(
+//                              backgroundColor: Colors.redAccent,
+//                            ),
+                          title:  Text(snapshot.value['name'].toString()),
+                          subtitle:  Text(snapshot.value['mobile']),
+                          onTap: (){
+                            debugPrint(snapshot.value['email'].toString());
+                          },
+                        ),
+                      );
+                    }
+                ),
               ),
               new RaisedButton(
                 color: Colors.blueGrey,
@@ -108,8 +132,8 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 
   Future signout() async {
      await FirebaseAuth.instance.signOut();
-     final prefs = await SharedPreferences.getInstance();
-     prefs.clear();
+//     final prefs = await SharedPreferences.getInstance();
+//     prefs.clear();
 
 //     var router = new MaterialPageRoute(
 //         builder: (BuildContext context){
@@ -127,5 +151,15 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
    void test() async{
      final prefs = await SharedPreferences.getInstance();
      print("user email from sharedPreferense " + prefs.getString("userEmail"));
+   }
+
+   void getUserDetails() async{
+//          database.reference().child("UserDetails").orderByChild("name").equalTo("testthree@test.com")
+//         .once().then((DataSnapshot snapshot){
+//                print( snapshot.value);
+////                String name = User.fromSnapshot(snapshot).name;
+////                print(name);
+//        });
+
    }
 }
