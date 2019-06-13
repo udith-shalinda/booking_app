@@ -111,12 +111,18 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
      final prefs = await SharedPreferences.getInstance();
      prefs.clear();
 
-     var router = new MaterialPageRoute(
-         builder: (BuildContext context){
-           return new LoginPage();
-         });
-     Navigator.of(context).push(router);
-   }
+//     var router = new MaterialPageRoute(
+//         builder: (BuildContext context){
+//           return new LoginPage();
+//         });
+//     Navigator.of(context).push(router);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+            (Route<dynamic> route) => false,
+    );
+
+  }
 
    void test() async{
      final prefs = await SharedPreferences.getInstance();

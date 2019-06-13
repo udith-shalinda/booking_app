@@ -91,7 +91,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 RaisedButton(
-                  onPressed: signUpWithEmail ,
+                  onPressed: signInButtonPress ,
                   color: Colors.greenAccent,
                   child: Text(
                     'Sign up',
@@ -126,12 +126,19 @@ class _SignUpPageState extends State<SignUpPage> {
 //
 //
 //  }
+
+  void signInButtonPress(){
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      signUpWithEmail();
+    }
+  }
   Future<FirebaseUser> signUpWithEmail() async{
     FirebaseUser user;
     try{
       user = await _auth.createUserWithEmailAndPassword(
-          email: _username.text,
-          password: _password.text
+          email: _email,
+          password: _formpassword
       );
     }catch(e){
       print(e.toString());
@@ -139,11 +146,17 @@ class _SignUpPageState extends State<SignUpPage> {
       if(user != null){
         incorrectPassword = false;
         print("user created");
-        var router = new MaterialPageRoute(
-            builder: (BuildContext context){
-              return new UserDetails(email:_username.text);
-            });
-        Navigator.of(context).push(router);
+//        var router = new MaterialPageRoute(
+//            builder: (BuildContext context){
+//              return new UserDetails(email:_username.text);
+//            });
+//        Navigator.of(context).push(router);
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => UserDetails(email: _username.text,)),
+              (Route<dynamic> route) => false,
+        );
+
       }else{
         print("Authentication failed");
         setState(() {
