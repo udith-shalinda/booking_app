@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../modle/bookModle.dart';
+import 'loginpage.dart';
 
 //booking a date
 class Date extends StatefulWidget {
   final String date;
-  final String userEmail;
-  Date({Key key,this.date,this.userEmail}):super(key :key);
+   String userEmail;
+  Date({Key key,this.date}):super(key :key);
 
   @override
   _DateState createState() => _DateState();
@@ -30,7 +32,7 @@ class _DateState extends State<Date> {
     bookModle = new BookModle("", false,false,false,'','','');
     databaseReference = database.reference().child("bookedTimes");
     databaseReference.onChildAdded.listen(_OnEntryAdded);
-
+    getSharedPreference();
     try{
       database.reference().child("bookedTimes").orderByChild("dateTime").equalTo("${widget.date}").once().then((DataSnapshot snapshot){
         if(snapshot.value == null){
@@ -172,4 +174,17 @@ class _DateState extends State<Date> {
       databaseReference.child(key).child("nightPlayer").set(widget.userEmail);
     }
   }
+  void getSharedPreference() async{
+    final prefs = await SharedPreferences.getInstance();   //save username
+    if(prefs.getString('userEmail') == null){
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+            (Route<dynamic> route) => false,
+      );
+    }else{
+      widget.userEmail = prefs.getString('userEmail');
+    }
+  }
+
 }

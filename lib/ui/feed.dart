@@ -131,7 +131,7 @@ class _NewsFeedState extends State<NewsFeed> {
         if(selectedDate.isAfter(DateTime.now())){
           var router = new MaterialPageRoute(
               builder: (BuildContext context){
-                return new Date(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]),userEmail:widget.userEmail);
+                return new Date(date: formatDate(selectedDate, [yyyy, '-', mm, '-', dd]));
               });
           Navigator.of(context).push(router);
         }
@@ -141,7 +141,7 @@ class _NewsFeedState extends State<NewsFeed> {
   void bookADate(String date) async{
     var router = new MaterialPageRoute(
         builder: (BuildContext context){
-          return new Date(date: date ,userEmail:widget.userEmail);
+          return new Date(date: date );
         });
     Navigator.of(context).push(router);
   }

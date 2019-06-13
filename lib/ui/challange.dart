@@ -151,7 +151,7 @@ class _showChallangesState extends State<showChallanges> {
   void initState() {
     super.initState();
     databaseReference = database.reference().child("Challanges");
-
+    getSharedPreference();
   }
 
   @override

@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
         prefs.setString("userEmail", _email);
         var router = new MaterialPageRoute(
             builder: (BuildContext context){
-              return new PickDate(userEmail:_username.text);
+              return new PickDate();
             });
         Navigator.of(context).push(router);
       }else{

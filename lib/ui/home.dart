@@ -16,8 +16,7 @@ import './loginpage.dart';
 //picking a date to book
 class PickDate extends StatefulWidget {
 
-  final String userEmail;
-  PickDate({Key key,this.userEmail}):super(key :key);
+   String userEmail;
 
   @override
   _PickDateState createState() => _PickDateState();
@@ -33,6 +32,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
    @override
    void initState(){
      super.initState();
+     getSharedPreference();
       _controller = new TabController(length: 2, vsync: this);
 //     database.reference().child("UserDetails").orderByChild("email").equalTo("${widget.userEmail}")
 //         .once().then((DataSnapshot snapshot){
@@ -168,5 +168,18 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
    }
    void updateProfile(){
 
+   }
+
+   void getSharedPreference() async{
+     final prefs = await SharedPreferences.getInstance();   //save username
+     if(prefs.getString('userEmail') == null){
+       Navigator.pushAndRemoveUntil(
+         context,
+         MaterialPageRoute(builder: (context) => LoginPage()),
+             (Route<dynamic> route) => false,
+       );
+     }else{
+       widget.userEmail = prefs.getString('userEmail');
+     }
    }
 }

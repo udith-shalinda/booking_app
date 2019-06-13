@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 import 'dart:async';
 
@@ -135,6 +137,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
   Future<FirebaseUser> signUpWithEmail() async{
     FirebaseUser user;
+    final prefs = await SharedPreferences.getInstance();   //save username
     try{
       user = await _auth.createUserWithEmailAndPassword(
           email: _email,
@@ -146,6 +149,7 @@ class _SignUpPageState extends State<SignUpPage> {
       if(user != null){
         incorrectPassword = false;
         print("user created");
+        prefs.setString("userEmail", _email);
 //        var router = new MaterialPageRoute(
 //            builder: (BuildContext context){
 //              return new UserDetails(email:_username.text);
@@ -153,7 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
 //        Navigator.of(context).push(router);
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => UserDetails(email: _username.text,)),
+          MaterialPageRoute(builder: (context) => UserDetails()),
               (Route<dynamic> route) => false,
         );
 

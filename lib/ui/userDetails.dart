@@ -4,15 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
 import '../modle/user.dart';
 import './home.dart';
+import 'loginpage.dart';
 
 class UserDetails extends StatefulWidget {
   String email;
-  UserDetails({Key key,this.email}):super(key :key);
+
 
   @override
   _UserDetailsState createState() => _UserDetailsState();
@@ -95,7 +97,7 @@ class _UserDetailsState extends State<UserDetails> {
 
     var router = new MaterialPageRoute(
         builder: (BuildContext context){
-          return new PickDate(userEmail: widget.email,);
+          return new PickDate();
         });
     Navigator.of(context).push(router);
   }
@@ -107,6 +109,18 @@ class _UserDetailsState extends State<UserDetails> {
     FirebaseStorage.instance.ref().child('profileImages').child("sfwfwfsfsfs");
     StorageUploadTask uploadTask = ref.putFile(imageFile);
     return await (await uploadTask.onComplete).ref.getDownloadURL();
+  }
+  void getSharedPreference() async{
+    final prefs = await SharedPreferences.getInstance();   //save username
+    if(prefs.getString('userEmail') == null){
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+            (Route<dynamic> route) => false,
+      );
+    }else{
+      widget.email = prefs.getString('userEmail');
+    }
   }
 
 }
