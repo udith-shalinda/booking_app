@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../modle/challangeModle.dart';
+import 'challengePlayers.dart';
 import 'loginpage.dart';
 
 
@@ -214,6 +215,13 @@ class _showChallangesState extends State<showChallanges> {
                                     addToTheMatch(snapshot.key,snapshot.value['count'],list);
                                   }
                                 },
+                                onLongPress: (){
+                                  List<String> list = [];
+                                  for(int i=0;i<snapshot.value['count'];i++){
+                                    list.add(snapshot.value['players'][i].toString());
+                                  }
+                                  showPlayers(list);
+                                },
                               ),
                             )
                           );
@@ -272,5 +280,12 @@ class _showChallangesState extends State<showChallanges> {
     }else{
       widget.userEmail = prefs.getString('userEmail');
     }
+  }
+  void showPlayers(List<String> list){
+    var router = new MaterialPageRoute(
+        builder: (BuildContext context){
+          return new ChallengePlayers(players: list,);     //this should be changed;
+        });
+    Navigator.of(context).push(router);
   }
 }

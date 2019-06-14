@@ -92,7 +92,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                         elevation: 8.0,
                         margin: new EdgeInsets.symmetric(horizontal: 0.0, vertical: 6.0),
                         child: Container(
-                            decoration: BoxDecoration(color: Color.fromRGBO(56, 70, 96, .9)),
+                            decoration: BoxDecoration(color: Color.fromRGBO(56, 70, 96, 1)),
                           child: new ListTile(
                             contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                             title:  Text(

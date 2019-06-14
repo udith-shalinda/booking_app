@@ -19,7 +19,7 @@ class NewsFeed extends StatefulWidget {
 class _NewsFeedState extends State<NewsFeed> {
 
   DateTime selectedDate = DateTime.now();
-  List<BookModle> bookedDatesList = List();
+  List<BookModle> bookedDatesList = List<BookModle>();
   //BookModle bookModle;
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference;
@@ -57,7 +57,7 @@ class _NewsFeedState extends State<NewsFeed> {
               new Container(
                 height:  MediaQuery.of(context).size.height-120,
                 child: new FirebaseAnimatedList(
-                    query: databaseReference,
+                    query: database.reference().child("bookedTimes").orderByChild('morningPlayer').equalTo(widget.userEmail),
                     itemBuilder: (_, DataSnapshot snapshot,Animation<double> animation , int index){
                       return new Card(
                         elevation: 8.0,
@@ -118,6 +118,7 @@ class _NewsFeedState extends State<NewsFeed> {
     setState(() {
       bookedDatesList.add(BookModle.fromSnapshot(event.snapshot));
     });
+//    print()
   }
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
