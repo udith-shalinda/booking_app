@@ -106,6 +106,7 @@ class _NewsFeedState extends State<NewsFeed> {
         onPressed: () {
           return _selectDate(context);
         },
+        //add a date
         child: Icon(Icons.add,
         color: Colors.pinkAccent,),
         backgroundColor: Colors.white,
