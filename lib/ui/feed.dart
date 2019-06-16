@@ -57,7 +57,7 @@ class _NewsFeedState extends State<NewsFeed> {
               new Container(
                 height:  MediaQuery.of(context).size.height-120,
                 child: new FirebaseAnimatedList(
-                    query: database.reference().child("bookedTimes").orderByChild('morningPlayer').equalTo(widget.userEmail),
+                    query: database.reference().child("bookedTimes"),
                     itemBuilder: (_, DataSnapshot snapshot,Animation<double> animation , int index){
                       return new Card(
                         elevation: 8.0,
