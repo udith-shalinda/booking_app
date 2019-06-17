@@ -81,9 +81,10 @@ class _NewsFeedState extends State<NewsFeed> {
                                 snapshot.value['dateTime'].toString(),
                                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                             ),
-                            subtitle:  Text("Morning :  ${snapshot.value['morning'].toString()}  ${snapshot.value['morningPlayer'].toString()} "
-                                "\n Evening :  ${snapshot.value['evening'].toString() } ${snapshot.value['eveningPlayer'].toString()}"
-                                "\n Night :  ${snapshot.value['night'].toString()} ${snapshot.value['nightPlayer'].toString()}",
+                            subtitle:  Text(
+                                "Morning : "+ (snapshot.value['morning']==true ? " Booked by ${snapshot.value['morningPlayer'].toString()}" : "Book Now")+
+                                "\n Evening : "+ (snapshot.value['evening']==true ? " Booked by ${snapshot.value['eveningPlayer'].toString()}" : "Book Now")+
+                                "\n Night :  "+ (snapshot.value['night']==true ? " Booked by ${snapshot.value['nightPlayer'].toString()}" : "Book Now"),
                                 style: TextStyle(color: Colors.white)
                             ),
                             trailing: new Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
