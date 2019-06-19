@@ -24,6 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   var _username = new TextEditingController();
   var _password = new TextEditingController();
+  var _verifypassword = new TextEditingController();
   bool incorrectPassword = false;
   var _formKey = GlobalKey<FormState>();
   String _email;
@@ -47,7 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           new Form(
             key: _formKey,
-            child: Column(
+            child: ListView(
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(20.0),
@@ -87,7 +88,31 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     decoration: InputDecoration(
                       hintText: "Enter the password",
-                      errorText: incorrectPassword ? "User email or password is incorrect":null,
+                      errorText: incorrectPassword ? "User email is already has an account":null,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: TextFormField(
+                    controller: _verifypassword,
+                    obscureText: true,
+                    validator: (value){
+                      if(value.length == 0){
+                        return "Password is empty";
+                      }
+                      if(value != _password.text){
+                        return "Re-entered password is not equel";
+                      }
+                    },
+                    onSaved: (value){
+                      //save
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Re-enter the password",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
                       ),
