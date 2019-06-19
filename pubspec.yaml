@@ -34,9 +34,17 @@ dependencies:
   shared_preferences: ^0.5.3+1
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_launcher_icons: ^0.7.2
+
+flutter_icons:
+  image_path: "images/footballicon.png"
+  android: true
+  ios: true
 
 
 # For information on the generic Dart part of this file, see the
@@ -57,6 +65,7 @@ flutter:
   assets:
     - images/cover_one.jpg
     - images/cover_two.jpg
+    - images/footballicon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
