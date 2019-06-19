@@ -75,6 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   padding: EdgeInsets.all(20.0),
                   child: TextFormField(
                     controller: _password,
+                    obscureText: true,
                     validator: (value){
 
                       if(value.length == 0){

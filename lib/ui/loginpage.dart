@@ -92,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: EdgeInsets.all(20.0),
                   child: TextFormField(
+                    obscureText: true,
                     controller: _password,
                     validator: (value){
 
