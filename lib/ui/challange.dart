@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../modle/challangeModle.dart';
 import 'challengePlayers.dart';
+import 'home.dart';
 import 'loginpage.dart';
 
 
@@ -105,6 +106,11 @@ class _createChallangeState extends State<createChallange> {
     challangeModle.players = playerslist;
 
     databaseReference.push().set(challangeModle.toJson());
+    var router = new MaterialPageRoute(
+        builder: (BuildContext context){
+          return new PickDate();
+        });
+    Navigator.of(context).push(router);
   }
   void getSharedPreference() async{
     final prefs = await SharedPreferences.getInstance();   //save username
