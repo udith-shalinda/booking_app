@@ -17,7 +17,7 @@ import './loginpage.dart';
 //picking a date to book
 class PickDate extends StatefulWidget {
 
-   String userEmail;
+   String userEmail='';
 
   @override
   _PickDateState createState() => _PickDateState();
@@ -25,6 +25,7 @@ class PickDate extends StatefulWidget {
 
 class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin {
    DateTime selectedDate = DateTime.now();
+   String email;
    TabController _controller;
    final FirebaseDatabase database = FirebaseDatabase.instance;
    DatabaseReference databaseReference;
@@ -35,7 +36,8 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
      super.initState();
      getSharedPreference();
       _controller = new TabController(length: 2, vsync: this);
-     getUserDetails();
+    // getUserDetails();
+     print("usesrname is "+widget.userEmail);
    }
 
 
@@ -85,7 +87,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
               new Container(
                 height: 400,
                 child: new FirebaseAnimatedList(
-                    query: database.reference().child("UserDetails").orderByChild("email").equalTo("testthree@test.com"),
+                    query: database.reference().child("UserDetails").orderByChild("email").equalTo("$email"),
                     itemBuilder:(_, DataSnapshot snapshot,Animation<double> animation , int index){
 //                      debugPrint("the index is : "+ index.toString());
                       return new Card(
@@ -162,15 +164,15 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 
   }
 
-   void getUserDetails() async{
-          database.reference().child("UserDetails").orderByChild("name").equalTo("testthree@test.cossssm")
-         .once().then((DataSnapshot snapshot){
-                print( snapshot);
-//                String name = User.fromSnapshot(snapshot).name;
-//                print(name);
-        });
-
-   }
+//   void getUserDetails() async{
+//          database.reference().child("UserDetails").orderByChild("name").equalTo("testthree@test.com")
+//         .once().then((DataSnapshot snapshot){
+//                print( snapshot);
+////                String name = User.fromSnapshot(snapshot).name;
+////                print(name);
+//        });
+//
+//   }
    void updateProfile(){
              var router = new MaterialPageRoute(
             builder: (BuildContext context){
@@ -189,6 +191,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
        );
      }else{
        widget.userEmail = prefs.getString('userEmail');
+       email = prefs.getString('userEmail');
      }
    }
 }
