@@ -81,7 +81,10 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
               new DrawerHeader(
                 child: new CircleAvatar(
                   radius: 45.0,
-                  child: new Icon(Icons.person_outline,size: 55,color: Colors.white,),
+//                  child: new Icon(Icons.person_outline,size: 55,color: Colors.white,),
+                child:Image.network(
+                  "https://firebasestorage.googleapis.com/v0/b/booking-flutter-app.appspot.com/o/testone%40test.com?alt=media&token=84633ab3-0e27-468f-8143-13ae919c1eb0"
+                ),
                   backgroundColor: Color.fromRGBO(64, 75, 96, .9),
                 ),
                 decoration: BoxDecoration(
