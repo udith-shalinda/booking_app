@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:booking_app/modle/user.dart';
 import 'package:booking_app/ui/userDetails.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -7,6 +9,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+
 
 
 import './Date.dart';
@@ -36,8 +41,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
      super.initState();
      getSharedPreference();
       _controller = new TabController(length: 2, vsync: this);
-    // getUserDetails();
-     print("usesrname is "+widget.userEmail);
+     //getProfileImage(); popup an error
    }
 
 
@@ -194,4 +198,15 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
        email = prefs.getString('userEmail');
      }
    }
+
+   Future<String> getProfileImage() async{
+     File imageFile;
+     final ref = FirebaseStorage.instance
+         .ref()
+         .child('profileImages').child("profileImages");
+
+     ref.putFile(imageFile);
+     var url = await ref.getDownloadURL() as String;
+     print("Image url is "+ url);
+  }
 }
