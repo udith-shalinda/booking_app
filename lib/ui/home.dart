@@ -31,6 +31,7 @@ class PickDate extends StatefulWidget {
 class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin {
    DateTime selectedDate = DateTime.now();
    String email;
+   var profilePicture="https://www.techadvisor.co.uk/cmsdata/features/3684758/daredevil_thumb800.jpeg";
    TabController _controller;
    final FirebaseDatabase database = FirebaseDatabase.instance;
    DatabaseReference databaseReference;
@@ -41,7 +42,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
      super.initState();
      getSharedPreference();
       _controller = new TabController(length: 2, vsync: this);
-     //getProfileImage(); popup an error
+     getProfileImage();
    }
 
 
@@ -83,7 +84,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                   radius: 45.0,
 //                  child: new Icon(Icons.person_outline,size: 55,color: Colors.white,),
                 child:Image.network(
-                  "https://firebasestorage.googleapis.com/v0/b/booking-flutter-app.appspot.com/o/testone%40test.com?alt=media&token=84633ab3-0e27-468f-8143-13ae919c1eb0"
+                  profilePicture
                 ),
                   backgroundColor: Color.fromRGBO(64, 75, 96, .9),
                 ),
@@ -92,7 +93,7 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                 ),
               ),
               new Container(
-                height: 400,
+                height: 200,
                 child: new FirebaseAnimatedList(
                     query: database.reference().child("UserDetails").orderByChild("email").equalTo("$email"),
                     itemBuilder:(_, DataSnapshot snapshot,Animation<double> animation , int index){
@@ -203,13 +204,11 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
    }
 
    Future<String> getProfileImage() async{
-     File imageFile;
      final ref = FirebaseStorage.instance
          .ref()
-         .child('profileImages').child("profileImages");
-
-     ref.putFile(imageFile);
-     var url = await ref.getDownloadURL() as String;
-     print("Image url is "+ url);
+         .child("testone@test.com");
+     profilePicture = await ref.getDownloadURL() as String;
+     print("Image url is "+ profilePicture);
+     print("hlloeerererererer");
   }
 }

@@ -27,6 +27,7 @@ class _UserDetailsState extends State<UserDetails> {
   String key;
   List<User> userList = List();
   File _image;
+  String useremail;
 
   var _name = new TextEditingController();
   var _mobile = new TextEditingController();
@@ -101,6 +102,7 @@ class _UserDetailsState extends State<UserDetails> {
       );
     }else{
       widget.email = prefs.getString('userEmail');
+      useremail =  prefs.getString('userEmail');
     }
   }
 
@@ -129,7 +131,7 @@ class _UserDetailsState extends State<UserDetails> {
   Future<String> _pickSaveImage() async {
     File imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
     StorageReference ref =
-    FirebaseStorage.instance.ref().child("testone@test.com");
+    FirebaseStorage.instance.ref().child(useremail);
     StorageUploadTask uploadTask = ref.putFile(imageFile);
     print(await (await uploadTask.onComplete).ref.getDownloadURL());
     return await (await uploadTask.onComplete).ref.getDownloadURL();
