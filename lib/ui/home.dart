@@ -83,9 +83,24 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                 child: new CircleAvatar(
                   radius: 45.0,
 //                  child: new Icon(Icons.person_outline,size: 55,color: Colors.white,),
-                child:Image.network(
-                  profilePicture
-                ),
+                  child:new Container(
+                      width: 135.0,
+                      height: 190.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image: new NetworkImage(
+                                  profilePicture
+                              ),
+                          )
+                      )),
+
+//                 child: Image.network(
+//                    profilePicture,
+//                    height: 150.0,
+//                    width: 100.0,
+//                ),
                   backgroundColor: Color.fromRGBO(64, 75, 96, .9),
                 ),
                 decoration: BoxDecoration(
