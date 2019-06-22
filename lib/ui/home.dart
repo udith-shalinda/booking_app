@@ -31,7 +31,7 @@ class PickDate extends StatefulWidget {
 class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin {
    DateTime selectedDate = DateTime.now();
    String email;
-   var profilePicture="https://www.techadvisor.co.uk/cmsdata/features/3684758/daredevil_thumb800.jpeg";
+   var profilePicture="https://www.pinclipart.com/picdir/middle/18-181421_png-transparent-download-person-svg-png-icon-person.png";
    TabController _controller;
    final FirebaseDatabase database = FirebaseDatabase.instance;
    DatabaseReference databaseReference;
@@ -93,8 +93,9 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
                               image: new NetworkImage(
                                   profilePicture
                               ),
-                          )
-                      )),
+                          ),
+                      ),
+                  ),
 
 //                 child: Image.network(
 //                    profilePicture,
@@ -219,9 +220,10 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
    }
 
    Future<String> getProfileImage() async{
+     final prefs = await SharedPreferences.getInstance();
      final ref = FirebaseStorage.instance
          .ref()
-         .child("testone@test.com");
+         .child(prefs.getString('userEmail'));
      profilePicture = await ref.getDownloadURL() as String;
      print("Image url is "+ profilePicture);
      print("hlloeerererererer");
