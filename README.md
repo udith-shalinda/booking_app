@@ -2,4 +2,4 @@
 
 An app to book a play ground 
 
-![gif](bookingappgif.gif)
+![gif](https://github.com/udith-shalinda/booking_app/blob/master/bookingappgif.mp4)
