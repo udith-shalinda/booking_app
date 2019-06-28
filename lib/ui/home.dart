@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:booking_app/modle/user.dart';
 import 'package:booking_app/ui/userDetails.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -13,8 +12,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 
 
-
-import './Date.dart';
 import './feed.dart' as feed;
 import './challange.dart' as challenge;
 import './loginpage.dart';
@@ -197,6 +194,8 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
 //        });
 //
 //   }
+
+
    void updateProfile(){
              var router = new MaterialPageRoute(
             builder: (BuildContext context){
@@ -226,6 +225,5 @@ class _PickDateState extends State<PickDate> with SingleTickerProviderStateMixin
          .child(prefs.getString('userEmail'));
      profilePicture = await ref.getDownloadURL() as String;
      print("Image url is "+ profilePicture);
-     print("hlloeerererererer");
   }
 }

@@ -210,13 +210,14 @@ class _showChallangesState extends State<showChallanges> {
                                 onTap: (){
                                   List<String> list = [];
                                   bool isAlreadypart = false;
-                                  for(int i=0;i<snapshot.value['count'];i++){
+                                  for(int i=0;i < snapshot.value['count'];i++){
                                     list.add(snapshot.value['players'][i].toString());
-                                    if(widget.userEmail == snapshot.value['players'][i].toString()){
+                                    if(widget.userEmail == (snapshot.value['players'][i].toString())){
                                       isAlreadypart = true;
                                     }
                                   }
-                                  if(!isAlreadypart){
+                                  if(isAlreadypart == false){
+                                    //print("this is false"+ widget.userEmail);
                                     list.add(widget.userEmail);
                                     addToTheMatch(snapshot.key,snapshot.value['count'],list);
                                   }
@@ -253,6 +254,7 @@ class _showChallangesState extends State<showChallanges> {
 
 
   void addToTheMatch(String key,int count,List<String> list){
+    print("hello"+widget.userEmail);
     databaseReference.child(key).child('players').set(list);
     databaseReference.child(key).child('count').set(count+1);
   }
